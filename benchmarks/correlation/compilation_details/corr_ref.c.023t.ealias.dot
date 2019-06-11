@@ -1,0 +1,98 @@
+digraph "corr_ref.c.023t.ealias" {
+overlap=false;
+subgraph "main" {
+	color="black";
+	label="main";
+	subgraph cluster_49_2 {
+	style="filled";
+	color="darkgreen";
+	fillcolor="grey88";
+	label="loop 2";
+	labeljust=l;
+	penwidth=2;
+	fn_49_basic_block_8 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 8\>:\l\
+|#\ i_2\ =\ PHI\ \<[corr_ref.c\ :\ 97:12]\ 0(5),\ [corr_ref.c\ :\ 97:2]\ i_36(7)\>\l\
+|[corr_ref.c\ :\ 97:2]\ if\ (i_2\ \<=\ 65535)\l\
+\ \ goto\ \<bb\ 6\>;\l\
+else\l\
+\ \ goto\ \<bb\ 9\>;\l\
+}"];
+
+	fn_49_basic_block_6 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 6\>:\l\
+|[corr_ref.c\ :\ 98:28]\ _31\ =\ (long\ unsigned\ int)\ i_2;\l\
+|[corr_ref.c\ :\ 98:28]\ _32\ =\ _31\ *\ 8;\l\
+|[corr_ref.c\ :\ 98:28]\ _33\ =\ symmat_11\ +\ _32;\l\
+|[corr_ref.c\ :\ 98:29]\ _34\ =\ [corr_ref.c\ :\ 98]\ *_33;\l\
+|[/usr/include/x86_64-linux-gnu/bits/stdio2.h\ :\ 104:72]\ _38\ =\ __printf_chk\ (1,\ \"%.15f,\",\ _34);\l\
+}"];
+
+	fn_49_basic_block_7 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 7\>:\l\
+|[corr_ref.c\ :\ 97:2]\ i_36\ =\ i_2\ +\ 1;\l\
+}"];
+
+	}
+	subgraph cluster_49_1 {
+	style="filled";
+	color="darkgreen";
+	fillcolor="grey88";
+	label="loop 1";
+	labeljust=l;
+	penwidth=2;
+	fn_49_basic_block_4 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 4\>:\l\
+|#\ i_1\ =\ PHI\ \<[corr_ref.c\ :\ 92:15]\ 0(2),\ [corr_ref.c\ :\ 92:5]\ i_28(3)\>\l\
+|[corr_ref.c\ :\ 92:5]\ if\ (i_1\ \<=\ 65535)\l\
+\ \ goto\ \<bb\ 3\>;\l\
+else\l\
+\ \ goto\ \<bb\ 5\>;\l\
+}"];
+
+	fn_49_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 3\>:\l\
+|[corr_ref.c\ :\ 93:15]\ _20\ =\ (long\ unsigned\ int)\ i_1;\l\
+|[corr_ref.c\ :\ 93:15]\ _21\ =\ _20\ *\ 8;\l\
+|[corr_ref.c\ :\ 93:15]\ _22\ =\ data_8\ +\ _21;\l\
+|[corr_ref.c\ :\ 93:31]\ _24\ =\ rand\ ();\l\
+|[corr_ref.c\ :\ 93:33]\ _25\ =\ (double)\ _24;\l\
+|[corr_ref.c\ :\ 93:33]\ _26\ =\ _25\ /\ 2.147483647e+9;\l\
+|[corr_ref.c\ :\ 93:50]\ [corr_ref.c\ :\ 93]\ *_22\ =\ _26;\l\
+|[corr_ref.c\ :\ 92:5]\ i_28\ =\ i_1\ +\ 1;\l\
+}"];
+
+	}
+	fn_49_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_49_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_49_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 2\>:\l\
+|[corr_ref.c\ :\ 86:51]\ data_8\ =\ malloc\ (524288);\l\
+|[corr_ref.c\ :\ 87:53]\ symmat_11\ =\ malloc\ (524288);\l\
+|[corr_ref.c\ :\ 88:49]\ mean_14\ =\ malloc\ (2048);\l\
+|[corr_ref.c\ :\ 89:51]\ stddev_17\ =\ malloc\ (2048);\l\
+|[corr_ref.c\ :\ 91:13]\ srand\ (5497);\l\
+|[corr_ref.c\ :\ 92:15]\ i_19\ =\ 0;\l\
+[corr_ref.c\ :\ 92\ :\ 5]\ goto\ \<bb\ 4\>;\l\
+}"];
+
+	fn_49_basic_block_5 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 5\>:\l\
+|[corr_ref.c\ :\ 95:44]\ correlation\ (data_8,\ mean_14,\ stddev_17,\ symmat_11);\l\
+|[corr_ref.c\ :\ 97:12]\ i_30\ =\ 0;\l\
+[corr_ref.c\ :\ 97\ :\ 2]\ goto\ \<bb\ 8\>;\l\
+}"];
+
+	fn_49_basic_block_9 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 9\>:\l\
+|return\ 0;\l\
+}"];
+
+	fn_49_basic_block_0:s -> fn_49_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true, label="[0%]"];
+	fn_49_basic_block_2:s -> fn_49_basic_block_4:n [style="solid,bold",color=blue,weight=100,constraint=true, label="[0%]"];
+	fn_49_basic_block_3:s -> fn_49_basic_block_4:n [style="dotted,bold",color=blue,weight=10,constraint=false, label="[0%]"];
+	fn_49_basic_block_4:s -> fn_49_basic_block_3:n [style="solid,bold",color=black,weight=10,constraint=true, label="[0%]"];
+	fn_49_basic_block_4:s -> fn_49_basic_block_5:n [style="solid,bold",color=black,weight=10,constraint=true, label="[0%]"];
+	fn_49_basic_block_5:s -> fn_49_basic_block_8:n [style="solid,bold",color=blue,weight=100,constraint=true, label="[0%]"];
+	fn_49_basic_block_6:s -> fn_49_basic_block_7:n [style="solid,bold",color=blue,weight=100,constraint=true, label="[100%]"];
+	fn_49_basic_block_7:s -> fn_49_basic_block_8:n [style="dotted,bold",color=blue,weight=10,constraint=false, label="[0%]"];
+	fn_49_basic_block_8:s -> fn_49_basic_block_6:n [style="solid,bold",color=black,weight=10,constraint=true, label="[0%]"];
+	fn_49_basic_block_8:s -> fn_49_basic_block_9:n [style="solid,bold",color=black,weight=10,constraint=true, label="[0%]"];
+	fn_49_basic_block_9:s -> fn_49_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true, label="[0%]"];
+	fn_49_basic_block_0:s -> fn_49_basic_block_1:n [style="invis",constraint=true];
+}
+}

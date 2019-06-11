@@ -1,0 +1,27 @@
+31 copyprop "Copies propagated" "printf" 1
+31 copyprop "Statements deleted" "printf" 1
+41 release_ssa "SSA names released" "printf" 1
+41 release_ssa "SSA name holes removed" "printf" 1
+20 ssa "unused VAR_DECLs removed" "correlation(double*, double*, double*, double*)" 2
+26 ccp "Statements folded" "correlation(double*, double*, double*, double*)" 9
+26 ccp "Constants propagated" "correlation(double*, double*, double*, double*)" 9
+26 ccp "Statements deleted" "correlation(double*, double*, double*, double*)" 44
+30 fre "SCC iterations == 2" "correlation(double*, double*, double*, double*)" 1
+30 fre "SCC iterations == 3" "correlation(double*, double*, double*, double*)" 12
+30 fre "SCC iterations == 4" "correlation(double*, double*, double*, double*)" 1
+30 fre "Eliminated" "correlation(double*, double*, double*, double*)" 47
+31 copyprop "Copies propagated" "correlation(double*, double*, double*, double*)" 21
+31 copyprop "Statements deleted" "correlation(double*, double*, double*, double*)" 53
+33 cddce "PHI nodes deleted" "correlation(double*, double*, double*, double*)" 4
+33 cddce "Statements deleted" "correlation(double*, double*, double*, double*)" 2
+41 release_ssa "SSA names released" "correlation(double*, double*, double*, double*)" 97
+41 release_ssa "SSA name holes removed" "correlation(double*, double*, double*, double*)" 97
+20 ssa "unused VAR_DECLs removed" "main" 50
+26 ccp "Statements folded" "main" 6
+26 ccp "Constants propagated" "main" 3
+26 ccp "Statements deleted" "main" 6
+30 fre "SCC iterations == 3" "main" 4
+31 copyprop "Statements deleted" "main" 2
+41 release_ssa "unused VAR_DECLs removed" "main" 1
+41 release_ssa "SSA names released" "main" 9
+41 release_ssa "SSA name holes removed" "main" 9

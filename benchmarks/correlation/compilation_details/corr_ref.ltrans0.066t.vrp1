@@ -1,0 +1,803 @@
+
+;; Function main (main, funcdef_no=0, decl_uid=2826, symbol_order=49) (executed once)
+
+Created preheader block for loop 7
+;; 12 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 38 22 23 21 25 26 27 28 29 30 39 31 32 33 34 35 36 37
+;;
+;; Loop 2
+;;  header 36, latch 35
+;;  depth 1, outer 0
+;;  nodes: 36 35 34
+;;
+;; Loop 3
+;;  header 32, latch 39
+;;  depth 1, outer 0
+;;  nodes: 32 39 30 25 29 28 26 27
+;;
+;; Loop 4
+;;  header 30, latch 29
+;;  depth 2, outer 3
+;;  nodes: 30 29 28 26 27
+;;
+;; Loop 5
+;;  header 28, latch 27
+;;  depth 3, outer 4
+;;  nodes: 28 27
+;;
+;; Loop 6
+;;  header 23, latch 22
+;;  depth 1, outer 0
+;;  nodes: 23 22 38 21 20
+;;
+;; Loop 7
+;;  header 38, latch 20
+;;  depth 2, outer 6
+;;  nodes: 38 20
+;;
+;; Loop 8
+;;  header 18, latch 17
+;;  depth 1, outer 0
+;;  nodes: 18 17 15 16 14 12 13
+;;
+;; Loop 9
+;;  header 14, latch 13
+;;  depth 2, outer 8
+;;  nodes: 14 13
+;;
+;; Loop 10
+;;  header 10, latch 9
+;;  depth 1, outer 0
+;;  nodes: 10 9 8 6 7
+;;
+;; Loop 11
+;;  header 8, latch 7
+;;  depth 2, outer 10
+;;  nodes: 8 7
+;;
+;; Loop 1
+;;  header 4, latch 3
+;;  depth 1, outer 0
+;;  nodes: 4 3
+;; 2 succs { 4 }
+;; 3 succs { 4 }
+;; 4 succs { 3 5 }
+;; 5 succs { 10 }
+;; 6 succs { 8 }
+;; 7 succs { 8 }
+;; 8 succs { 7 9 }
+;; 9 succs { 10 }
+;; 10 succs { 6 11 }
+;; 11 succs { 18 }
+;; 12 succs { 14 }
+;; 13 succs { 14 }
+;; 14 succs { 13 15 }
+;; 15 succs { 17 16 }
+;; 16 succs { 17 }
+;; 17 succs { 18 }
+;; 18 succs { 12 19 }
+;; 19 succs { 23 }
+;; 20 succs { 38 }
+;; 38 succs { 20 22 }
+;; 22 succs { 23 }
+;; 23 succs { 21 31 }
+;; 21 succs { 38 }
+;; 25 succs { 30 }
+;; 26 succs { 28 }
+;; 27 succs { 28 }
+;; 28 succs { 27 29 }
+;; 29 succs { 30 }
+;; 30 succs { 26 39 }
+;; 39 succs { 32 }
+;; 31 succs { 32 }
+;; 32 succs { 25 33 }
+;; 33 succs { 36 }
+;; 34 succs { 35 }
+;; 35 succs { 36 }
+;; 36 succs { 34 37 }
+;; 37 succs { 1 }
+
+SSA replacement table
+N_i -> { O_1 ... O_j } means that N_i replaces O_1, ..., O_j
+
+i_171 -> { i_1 }
+i_172 -> { i_2 }
+symmat_173 -> { symmat_9 }
+j_174 -> { j_43 }
+_175 -> { _46 }
+_176 -> { _46 }
+i_177 -> { i_48 }
+j_178 -> { j_60 }
+_179 -> { _63 }
+_180 -> { _63 }
+i_181 -> { i_65 }
+i_182 -> { i_83 }
+j_183 -> { j_85 }
+_184 -> { _89 }
+j1_185 -> { j1_102 }
+j1_186 -> { j1_109 }
+_187 -> { _113 }
+i_188 -> { i_115 }
+Incremental SSA update started at block: 2
+Number of blocks in CFG: 41
+Number of blocks to update: 30 ( 73%)
+
+
+
+Value ranges after VRP:
+
+i_1: [0, 65536]
+i_2: [0, 65536]
+data_7: VARYING
+symmat_9: VARYING
+mean_11: VARYING
+stddev_13: VARYING
+_15: [0, 65535]
+_16: [0, 524280]
+_17: VARYING
+_19: VARYING
+_20: VARYING
+_21: VARYING
+i_23: [1, 65536]
+_25: [0, 65535]
+_26: [0, 524280]
+_27: VARYING
+_28: VARYING
+i_30: [1, 65536]
+.MEM_31: VARYING
+.MEM_32: VARYING
+.MEM_41: VARYING
+j_43: [0, 256]
+_44: [0, 255]
+_45: [0, 2040]
+_46: VARYING
+_47: VARYING
+i_48: [0, 256]
+_49: [0, 65280]
+_50: [0, 65535]
+_51: [0, 65535]
+_52: [0, 524280]
+_53: VARYING
+_54: VARYING
+_55: VARYING
+i_56: [1, 256]
+_57: VARYING
+_58: VARYING
+j_59: [1, 256]
+j_60: [0, 256]
+_61: [0, 255]
+_62: [0, 2040]
+_63: VARYING
+_64: VARYING
+i_65: [0, 256]
+_66: [0, 65280]
+_67: [0, 65535]
+_68: [0, 65535]
+_69: [0, 524280]
+_70: VARYING
+_71: VARYING
+_72: VARYING
+_73: VARYING
+_74: VARYING
+_75: VARYING
+_76: VARYING
+i_77: [1, 256]
+_78: VARYING
+_79: VARYING
+_80: VARYING
+_81: VARYING
+j_82: [1, 256]
+i_83: [0, 256]
+_84: [0, 65280]
+j_85: [0, 256]
+_86: [0, 65535]
+_87: [0, 65535]
+_88: [0, 524280]
+_89: VARYING
+_90: VARYING
+_91: [0, 255]
+_92: [0, 2040]
+_93: VARYING
+_94: VARYING
+_95: VARYING
+_96: VARYING
+_97: VARYING
+_98: VARYING
+_99: VARYING
+j_100: [1, 256]
+i_101: [1, 256]
+j1_102: [0, 255]
+_103: [0, 65278]
+_104: [0, 65278]
+_105: [0, 522224]
+_106: VARYING
+j1_107: [1, 255]
+_108: [0, 65024]
+j1_109: [1, 16777471]
+_110: [1, 65279]
+_111: [1, 65279]
+_112: [8, 522232]
+_113: VARYING
+_114: VARYING
+i_115: [0, 256]
+_116: [0, 65280]
+_117: [0, 65534]
+_118: [0, 65534]
+_119: [0, 524272]
+_120: VARYING
+_121: VARYING
+_122: [1, 65535]
+_123: [1, 65535]
+_124: [8, 524280]
+_125: VARYING
+_126: VARYING
+_127: VARYING
+_128: VARYING
+i_129: [1, 256]
+_130: [256, 65280]
+_131: [256, 65534]
+_132: [256, 65534]
+_133: [2048, 524272]
+_134: VARYING
+_135: VARYING
+j1_136: [2, 256]
+i_137: [0, 0]
+.MEM_138: VARYING
+.MEM_139: VARYING
+j1_140: [0, 0]
+.MEM_141: VARYING
+.MEM_142: VARYING
+.MEM_143: VARYING
+.MEM_144: VARYING
+.MEM_145: VARYING
+.MEM_146: VARYING
+.MEM_147: VARYING
+.MEM_148: VARYING
+.MEM_165: VARYING
+j_166: [0, 0]
+j_167: [0, 0]
+.MEM_168: VARYING
+j_169: [0, 0]
+.MEM_170: VARYING
+i_171: [0, 65535]  EQUIVALENCES: { i_1 } (1 elements)
+i_172: [0, 65535]  EQUIVALENCES: { i_2 } (1 elements)
+symmat_173: ~[0B, 0B]  EQUIVALENCES: { symmat_9 } (1 elements)
+j_174: [0, 255]  EQUIVALENCES: { j_43 } (1 elements)
+_175: ~[0B, 0B]  EQUIVALENCES: { _46 } (1 elements)
+_176: ~[0B, 0B]  EQUIVALENCES: { _46 _175 } (2 elements)
+i_177: [0, 255]  EQUIVALENCES: { i_48 } (1 elements)
+j_178: [0, 255]  EQUIVALENCES: { j_60 } (1 elements)
+_179: ~[0B, 0B]  EQUIVALENCES: { _63 } (1 elements)
+_180: ~[0B, 0B]  EQUIVALENCES: { _63 _179 } (2 elements)
+i_181: [0, 255]  EQUIVALENCES: { i_65 } (1 elements)
+i_182: [0, 255]  EQUIVALENCES: { i_83 } (1 elements)
+j_183: [0, 255]  EQUIVALENCES: { j_85 } (1 elements)
+_184: ~[0B, 0B]  EQUIVALENCES: { _89 } (1 elements)
+j1_185: [0, 254]  EQUIVALENCES: { j1_102 } (1 elements)
+j1_186: [1, 255]  EQUIVALENCES: { j1_109 } (1 elements)
+_187: ~[0B, 0B]  EQUIVALENCES: { _113 } (1 elements)
+i_188: [0, 255]  EQUIVALENCES: { i_115 } (1 elements)
+
+
+Simplified relational if (i_1 <= 65535)
+ into if (i_1 != 65536)
+
+Simplified relational if (i_48 <= 255)
+ into if (i_48 != 256)
+
+Simplified relational if (j_43 <= 255)
+ into if (j_43 != 256)
+
+Simplified relational if (i_65 <= 255)
+ into if (i_65 != 256)
+
+Simplified relational if (j_60 <= 255)
+ into if (j_60 != 256)
+
+Simplified relational if (j_85 <= 255)
+ into if (j_85 != 256)
+
+Simplified relational if (i_83 <= 255)
+ into if (i_83 != 256)
+
+Simplified relational if (i_115 <= 255)
+ into if (i_115 != 256)
+
+Simplified relational if (j1_102 <= 254)
+ into if (j1_102 != 255)
+
+Simplified relational if (i_2 <= 65535)
+ into if (i_2 != 65536)
+
+Removing basic block 3
+Removing basic block 6
+Removing basic block 7
+Removing basic block 12
+Removing basic block 13
+Removing basic block 20
+Removing basic block 25
+Removing basic block 26
+Removing basic block 27
+Removing basic block 34
+Removing basic block 39
+Removing basic block 40
+Merging blocks 42 and 35
+Merging blocks 52 and 21
+
+SSA replacement table
+N_i -> { O_1 ... O_j } means that N_i replaces O_1, ..., O_j
+
+i_165 -> { i_1 }
+.MEM_171 -> { .MEM_41 }
+i_172 -> { i_2 }
+.MEM_173 -> { .MEM_32 }
+i_174 -> { i_48 }
+.MEM_175 -> { .MEM_143 }
+.MEM_176 -> { .MEM_142 }
+j_177 -> { j_60 }
+i_178 -> { i_65 }
+.MEM_179 -> { .MEM_145 }
+.MEM_180 -> { .MEM_144 }
+i_181 -> { i_83 }
+j1_182 -> { j1_102 }
+j_183 -> { j_85 }
+.MEM_184 -> { .MEM_148 }
+.MEM_185 -> { .MEM_147 }
+j1_186 -> { j1_109 }
+.MEM_187 -> { .MEM_146 }
+i_188 -> { i_115 }
+j_189 -> { j_43 }
+.MEM_190 -> { .MEM_141 }
+i_191 -> { i_1 }
+.MEM_192 -> { .MEM_31 }
+i_193 -> { i_2 }
+.MEM_194 -> { .MEM_31 }
+.MEM_195 -> { .MEM_32 }
+.MEM_196 -> { .MEM_41 }
+j_197 -> { j_43 }
+i_198 -> { i_48 }
+j_199 -> { j_60 }
+i_200 -> { i_65 }
+i_201 -> { i_83 }
+j_202 -> { j_85 }
+j1_203 -> { j1_102 }
+j1_204 -> { j1_109 }
+i_205 -> { i_115 }
+.MEM_206 -> { .MEM_141 }
+.MEM_207 -> { .MEM_142 }
+.MEM_208 -> { .MEM_143 }
+.MEM_209 -> { .MEM_144 }
+.MEM_210 -> { .MEM_145 }
+.MEM_211 -> { .MEM_146 }
+.MEM_212 -> { .MEM_147 }
+.MEM_213 -> { .MEM_148 }
+Incremental SSA update started at block: 47
+Number of blocks in CFG: 48
+Number of blocks to update: 44 ( 92%)
+
+
+main ()
+{
+  int i;
+  int j;
+  int j1;
+  int j2;
+  double * stddev;
+  double * mean;
+  double * symmat;
+  double * data;
+  int i;
+  long unsigned int _15;
+  long unsigned int _16;
+  double * _17;
+  int _19;
+  double _20;
+  double _21;
+  long unsigned int _25;
+  long unsigned int _26;
+  double * _27;
+  double _28;
+  long unsigned int _44;
+  long unsigned int _45;
+  double * _46;
+  double _47;
+  int _49;
+  int _50;
+  long unsigned int _51;
+  long unsigned int _52;
+  double * _53;
+  double _54;
+  double _55;
+  double _57;
+  double _58;
+  long unsigned int _61;
+  long unsigned int _62;
+  double * _63;
+  double _64;
+  int _66;
+  int _67;
+  long unsigned int _68;
+  long unsigned int _69;
+  double * _70;
+  double _71;
+  double * _72;
+  double _73;
+  double _74;
+  double _75;
+  double _76;
+  double _78;
+  double _79;
+  double _80;
+  double _81;
+  int _84;
+  int _86;
+  long unsigned int _87;
+  long unsigned int _88;
+  double * _89;
+  double _90;
+  long unsigned int _91;
+  long unsigned int _92;
+  double * _93;
+  double _94;
+  double _95;
+  double * _96;
+  double _97;
+  double _98;
+  double _99;
+  int _103;
+  long unsigned int _104;
+  long unsigned int _105;
+  double * _106;
+  int _108;
+  int _110;
+  long unsigned int _111;
+  long unsigned int _112;
+  double * _113;
+  double _114;
+  int _116;
+  int _117;
+  long unsigned int _118;
+  long unsigned int _119;
+  double * _120;
+  double _121;
+  int _122;
+  long unsigned int _123;
+  long unsigned int _124;
+  double * _125;
+  double _126;
+  double _127;
+  double _128;
+  int _130;
+  int _131;
+  long unsigned int _132;
+  long unsigned int _133;
+  double * _134;
+  double _135;
+
+  <bb 2>:
+  [corr_ref.c : 86:51] data_7 = malloc (524288);
+  [corr_ref.c : 87:53] symmat_9 = malloc (524288);
+  [corr_ref.c : 88:49] mean_11 = malloc (2048);
+  [corr_ref.c : 89:51] stddev_13 = malloc (2048);
+  [corr_ref.c : 91:13] srand (5497);
+  goto <bb 47>;
+
+  <bb 3>:
+  # i_165 = PHI <[corr_ref.c : 92:5] i_1(4), [corr_ref.c : 92:15] i_191(47)>
+  [corr_ref.c : 93:15] _15 = (long unsigned int) i_165;
+  [corr_ref.c : 93:15] _16 = _15 * 8;
+  [corr_ref.c : 93:15] _17 = data_7 + _16;
+  [corr_ref.c : 93:31] _19 = rand ();
+  [corr_ref.c : 93:33] _20 = (double) _19;
+  [corr_ref.c : 93:33] _21 = _20 / 2.147483647e+9;
+  [corr_ref.c : 93:50] [corr_ref.c : 93] *_17 = _21;
+  [corr_ref.c : 92:5] i_23 = i_165 + 1;
+
+  <bb 4>:
+  # i_1 = PHI <[corr_ref.c : 92:5] i_23(3)>
+  [corr_ref.c : 92:5] if (i_1 != 65536)
+    goto <bb 3>;
+  else
+    goto <bb 5>;
+
+  <bb 5>:
+  j_169 = 0;
+  goto <bb 46>;
+
+  <bb 6>:
+  # j_197 = PHI <[corr_ref.c : 24:4] j_43(10), j_189(46)>
+  [corr_ref.c : 26:11] _44 = (long unsigned int) j_197;
+  [corr_ref.c : 26:11] _45 = _44 * 8;
+  [corr_ref.c : 26:11] _46 = mean_11 + _45;
+  [corr_ref.c : 26:19] *_46 = 0.0;
+  goto <bb 45>;
+
+  <bb 7>:
+  # i_198 = PHI <[corr_ref.c : 28:6] i_48(8), [corr_ref.c : 28:16] i_174(45)>
+  [corr_ref.c : 30:26] _47 = *_46;
+  [corr_ref.c : 30:21] _49 = i_198 * 256;
+  [corr_ref.c : 30:23] _50 = j_197 + _49;
+  [corr_ref.c : 30:25] _51 = (long unsigned int) _50;
+  [corr_ref.c : 30:25] _52 = _51 * 8;
+  [corr_ref.c : 30:25] _53 = data_7 + _52;
+  [corr_ref.c : 30:25] _54 = *_53;
+  [corr_ref.c : 30:26] _55 = _47 + _54;
+  [corr_ref.c : 30:26] *_46 = _55;
+  [corr_ref.c : 28:6] i_56 = i_198 + 1;
+
+  <bb 8>:
+  # i_48 = PHI <[corr_ref.c : 28:6] i_56(7)>
+  [corr_ref.c : 28:6] if (i_48 != 256)
+    goto <bb 7>;
+  else
+    goto <bb 9>;
+
+  <bb 9>:
+  [corr_ref.c : 33:28] _57 = *_46;
+  [corr_ref.c : 33:28] _58 = _57 / 3.214212e+6;
+  [corr_ref.c : 33:28] *_46 = _58;
+  [corr_ref.c : 24:4] j_59 = j_197 + 1;
+
+  <bb 10>:
+  # j_43 = PHI <[corr_ref.c : 24:4] j_59(9)>
+  [corr_ref.c : 24:4] if (j_43 != 256)
+    goto <bb 6>;
+  else
+    goto <bb 11>;
+
+  <bb 11>:
+  j_167 = 0;
+  goto <bb 44>;
+
+  <bb 12>:
+  # j_199 = PHI <[corr_ref.c : 37:4] j_60(18), j_177(44)>
+  [corr_ref.c : 39:14] _61 = (long unsigned int) j_199;
+  [corr_ref.c : 39:14] _62 = _61 * 8;
+  [corr_ref.c : 39:14] _63 = stddev_13 + _62;
+  [corr_ref.c : 39:22] *_63 = 0.0;
+  goto <bb 43>;
+
+  <bb 13>:
+  # i_200 = PHI <[corr_ref.c : 41:3] i_65(14), [corr_ref.c : 41:13] i_178(43)>
+  [corr_ref.c : 43:66] _64 = *_63;
+  [corr_ref.c : 43:50] _66 = i_200 * 256;
+  [corr_ref.c : 43:52] _67 = j_199 + _66;
+  [corr_ref.c : 43:54] _68 = (long unsigned int) _67;
+  [corr_ref.c : 43:54] _69 = _68 * 8;
+  [corr_ref.c : 43:54] _70 = data_7 + _69;
+  [corr_ref.c : 43:54] _71 = *_70;
+  [corr_ref.c : 43:64] _72 = mean_11 + _62;
+  [corr_ref.c : 43:64] _73 = *_72;
+  [corr_ref.c : 43:56] _74 = _71 - _73;
+  [corr_ref.c : 43:41] _75 = _74 * _74;
+  [corr_ref.c : 43:66] _76 = _64 + _75;
+  [corr_ref.c : 43:66] *_63 = _76;
+  [corr_ref.c : 41:3] i_77 = i_200 + 1;
+
+  <bb 14>:
+  # i_65 = PHI <[corr_ref.c : 41:3] i_77(13)>
+  [corr_ref.c : 41:3] if (i_65 != 256)
+    goto <bb 13>;
+  else
+    goto <bb 15>;
+
+  <bb 15>:
+  [corr_ref.c : 46:23] _78 = *_63;
+  [corr_ref.c : 46:23] _79 = _78 / 3.214212e+6;
+  [corr_ref.c : 46:23] *_63 = _79;
+  [corr_ref.c : 47:15] _80 = sqrt (_79);
+  [corr_ref.c : 47:44] *_63 = _80;
+  [corr_ref.c : 48:50] if (_80 <= 4.999999888241291046142578125e-3)
+    goto <bb 17>;
+  else
+    goto <bb 16>;
+
+  <bb 16>:
+
+  <bb 17>:
+  # _81 = PHI <[corr_ref.c : 48:50] 1.0e+0(15), [corr_ref.c : 48:50] _80(16)>
+  [corr_ref.c : 48:50] *_63 = _81;
+  [corr_ref.c : 37:4] j_82 = j_199 + 1;
+
+  <bb 18>:
+  # j_60 = PHI <[corr_ref.c : 37:4] j_82(17)>
+  [corr_ref.c : 37:4] if (j_60 != 256)
+    goto <bb 12>;
+  else
+    goto <bb 19>;
+
+  <bb 19>:
+  i_137 = 0;
+  goto <bb 42>;
+
+  <bb 20>:
+  # j_202 = PHI <[corr_ref.c : 54:3] j_85(21), j_183(41)>
+  [corr_ref.c : 56:26] _84 = i_201 * 256;
+  [corr_ref.c : 56:26] _86 = _84 + j_202;
+  [corr_ref.c : 56:26] _87 = (long unsigned int) _86;
+  [corr_ref.c : 56:26] _88 = _87 * 8;
+  [corr_ref.c : 56:26] _89 = data_7 + _88;
+  [corr_ref.c : 56:26] _90 = *_89;
+  [corr_ref.c : 56:25] _91 = (long unsigned int) j_202;
+  [corr_ref.c : 56:25] _92 = _91 * 8;
+  [corr_ref.c : 56:25] _93 = mean_11 + _92;
+  [corr_ref.c : 56:25] _94 = *_93;
+  [corr_ref.c : 56:26] _95 = _90 - _94;
+  [corr_ref.c : 56:26] *_89 = _95;
+  [corr_ref.c : 57:42] _96 = stddev_13 + _92;
+  [corr_ref.c : 57:42] _97 = *_96;
+  [corr_ref.c : 57:33] _98 = _97 * 1.792822355951642975924187339842319488525390625e+3;
+  [corr_ref.c : 57:45] _99 = _95 / _98;
+  [corr_ref.c : 57:45] *_89 = _99;
+  [corr_ref.c : 54:3] j_100 = j_202 + 1;
+
+  <bb 21>:
+  # j_85 = PHI <[corr_ref.c : 54:3] j_100(20)>
+  [corr_ref.c : 54:3] if (j_85 != 256)
+    goto <bb 20>;
+  else
+    goto <bb 22>;
+
+  <bb 22>:
+  [corr_ref.c : 52:4] i_101 = i_201 + 1;
+
+  <bb 23>:
+  # i_83 = PHI <[corr_ref.c : 52:4] i_101(22)>
+  [corr_ref.c : 52:4] if (i_83 != 256)
+    goto <bb 24>;
+  else
+    goto <bb 31>;
+
+  <bb 24>:
+  # i_201 = PHI <[corr_ref.c : 52:4] i_83(23), i_181(42)>
+  j_166 = 0;
+  goto <bb 41>;
+
+  <bb 25>:
+  # j1_203 = PHI <[corr_ref.c : 62:4] j1_102(32), j1_182(40)>
+  [corr_ref.c : 64:14] _103 = j1_203 * 257;
+  [corr_ref.c : 64:17] _104 = (long unsigned int) _103;
+  [corr_ref.c : 64:17] _105 = _104 * 8;
+  [corr_ref.c : 64:17] _106 = symmat_9 + _105;
+  [corr_ref.c : 64:25] *_106 = 1.0e+0;
+  [corr_ref.c : 66:17] j1_107 = j1_203 + 1;
+  goto <bb 39>;
+
+  <bb 26>:
+  # j1_204 = PHI <[corr_ref.c : 66:3] j1_109(30), [corr_ref.c : 66:17] j1_186(39)>
+  [corr_ref.c : 68:15] _108 = j1_203 * 256;
+  [corr_ref.c : 68:17] _110 = _108 + j1_204;
+  [corr_ref.c : 68:20] _111 = (long unsigned int) _110;
+  [corr_ref.c : 68:20] _112 = _111 * 8;
+  [corr_ref.c : 68:20] _113 = symmat_9 + _112;
+  [corr_ref.c : 68:28] *_113 = 0.0;
+  goto <bb 38>;
+
+  <bb 27>:
+  # i_205 = PHI <[corr_ref.c : 70:6] i_115(28), [corr_ref.c : 70:16] i_188(38)>
+  [corr_ref.c : 72:56] _114 = *_113;
+  [corr_ref.c : 72:34] _116 = i_205 * 256;
+  [corr_ref.c : 72:36] _117 = j1_203 + _116;
+  [corr_ref.c : 72:39] _118 = (long unsigned int) _117;
+  [corr_ref.c : 72:39] _119 = _118 * 8;
+  [corr_ref.c : 72:39] _120 = data_7 + _119;
+  [corr_ref.c : 72:39] _121 = *_120;
+  [corr_ref.c : 72:51] _122 = j1_204 + _116;
+  [corr_ref.c : 72:54] _123 = (long unsigned int) _122;
+  [corr_ref.c : 72:54] _124 = _123 * 8;
+  [corr_ref.c : 72:54] _125 = data_7 + _124;
+  [corr_ref.c : 72:54] _126 = *_125;
+  [corr_ref.c : 72:41] _127 = _121 * _126;
+  [corr_ref.c : 72:56] _128 = _114 + _127;
+  [corr_ref.c : 72:56] *_113 = _128;
+  [corr_ref.c : 70:6] i_129 = i_205 + 1;
+
+  <bb 28>:
+  # i_115 = PHI <[corr_ref.c : 70:6] i_129(27)>
+  [corr_ref.c : 70:6] if (i_115 != 256)
+    goto <bb 27>;
+  else
+    goto <bb 29>;
+
+  <bb 29>:
+  [corr_ref.c : 75:15] _130 = j1_204 * 256;
+  [corr_ref.c : 75:17] _131 = j1_203 + _130;
+  [corr_ref.c : 75:20] _132 = (long unsigned int) _131;
+  [corr_ref.c : 75:20] _133 = _132 * 8;
+  [corr_ref.c : 75:20] _134 = symmat_9 + _133;
+  [corr_ref.c : 75:38] _135 = *_113;
+  [corr_ref.c : 75:39] *_134 = _135;
+  [corr_ref.c : 66:3] j1_136 = j1_204 + 1;
+
+  <bb 30>:
+  # j1_109 = PHI <[corr_ref.c : 66:3] j1_136(29)>
+  [corr_ref.c : 66:3] if (j1_109 <= 255)
+    goto <bb 26>;
+  else
+    goto <bb 32>;
+
+  <bb 31>:
+  j1_140 = 0;
+  goto <bb 40>;
+
+  <bb 32>:
+  # j1_102 = PHI <[corr_ref.c : 62:4] j1_107(30)>
+  [corr_ref.c : 62:4] if (j1_102 != 255)
+    goto <bb 25>;
+  else
+    goto <bb 33>;
+
+  <bb 33>:
+  [corr_ref.c : 79:32] MEM[(double *)symmat_9 + 524280B] = 1.0e+0;
+  goto <bb 37>;
+
+  <bb 34>:
+  # i_193 = PHI <[corr_ref.c : 97:2] i_2(35), [corr_ref.c : 97:12] i_172(37)>
+  [corr_ref.c : 98:28] _25 = (long unsigned int) i_193;
+  [corr_ref.c : 98:28] _26 = _25 * 8;
+  [corr_ref.c : 98:28] _27 = symmat_9 + _26;
+  [corr_ref.c : 98:29] _28 = [corr_ref.c : 98] *_27;
+  [/usr/include/x86_64-linux-gnu/bits/stdio2.h : 104:72] __printf_chk (1, "%.15f,", _28);
+  [corr_ref.c : 97:2] i_30 = i_193 + 1;
+
+  <bb 35>:
+  # i_2 = PHI <[corr_ref.c : 97:2] i_30(34)>
+  [corr_ref.c : 97:2] if (i_2 != 65536)
+    goto <bb 34>;
+  else
+    goto <bb 36>;
+
+  <bb 36>:
+  return 0;
+
+  <bb 37>:
+  # i_172 = PHI <[corr_ref.c : 97:12] 0(33)>
+  goto <bb 34>;
+
+  <bb 38>:
+  # i_188 = PHI <[corr_ref.c : 70:16] 0(26)>
+  goto <bb 27>;
+
+  <bb 39>:
+  # j1_186 = PHI <[corr_ref.c : 66:17] j1_107(25)>
+  goto <bb 26>;
+
+  <bb 40>:
+  # j1_182 = PHI <0(31)>
+  goto <bb 25>;
+
+  <bb 41>:
+  # j_183 = PHI <0(24)>
+  goto <bb 20>;
+
+  <bb 42>:
+  # i_181 = PHI <0(19)>
+  goto <bb 24>;
+
+  <bb 43>:
+  # i_178 = PHI <[corr_ref.c : 41:13] 0(12)>
+  goto <bb 13>;
+
+  <bb 44>:
+  # j_177 = PHI <0(11)>
+  goto <bb 12>;
+
+  <bb 45>:
+  # i_174 = PHI <[corr_ref.c : 28:16] 0(6)>
+  goto <bb 7>;
+
+  <bb 46>:
+  # j_189 = PHI <0(5)>
+  goto <bb 6>;
+
+  <bb 47>:
+  # i_191 = PHI <[corr_ref.c : 92:15] 0(2)>
+  goto <bb 3>;
+
+}
+
+

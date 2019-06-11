@@ -1,0 +1,2081 @@
+
+;; Function printf (printf, funcdef_no=16, decl_uid=955, symbol_order=16)
+
+Points-to analysis
+
+Constraints:
+
+ANYTHING = &ANYTHING
+READONLY = &READONLY
+ESCAPED = *ESCAPED
+ESCAPED = ESCAPED + UNKNOWN
+*ESCAPED = NONLOCAL
+NONLOCAL = &NONLOCAL
+NONLOCAL = &ESCAPED
+INTEGER = &ANYTHING
+__fmt = &PARM_RESTRICT
+PARM_RESTRICT = NONLOCAL
+ESCAPED = &NONLOCAL
+ESCAPED = __fmt
+_4 = NONLOCAL
+_5 = _4
+ESCAPED = _5
+
+Collapsing static cycles and doing variable substitution
+Building predecessor graph
+Detecting pointer and location equivalences
+
+
+// The constraint graph before var-substitution in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING"[label="ANYTHING = { 2 }"];
+"READONLY"[label="READONLY = { 3 }"];
+"ESCAPED"[label="ESCAPED = { 5 }"];
+"NONLOCAL"[label="NONLOCAL = { 4 5 }"];
+"STOREDANYTHING";
+"INTEGER"[label="INTEGER = { 2 }"];
+"__fmt"[label="__fmt = { 9 }"];
+"PARM_RESTRICT";
+"__printf_chk";
+"_4";
+"_5";
+"*NULL";
+"*ANYTHING";
+"*READONLY";
+"*STOREDANYTHING";
+"*INTEGER";
+"*__fmt";
+"*PARM_RESTRICT";
+"*__printf_chk";
+
+  // Edges in the constraint graph:
+"NONLOCAL" -> "ESCAPED";
+"__fmt" -> "ESCAPED";
+"_5" -> "ESCAPED";
+"ESCAPED" -> "ESCAPED";
+"NONLOCAL" -> "PARM_RESTRICT";
+"NONLOCAL" -> "_4";
+"_4" -> "_5";
+}
+
+
+Rewriting constraints and unifying variables
+Uniting pointer but not location equivalent variables
+Finding indirect cycles
+
+
+// The constraint graph before solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"READONLY";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"STOREDANYTHING";
+"INTEGER";
+"__fmt";
+"PARM_RESTRICT";
+"__printf_chk";
+"_4";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "PARM_RESTRICT";
+"__fmt" -> "ESCAPED";
+"_4" -> "ESCAPED";
+"_4" -> "PARM_RESTRICT";
+}
+
+
+Solving graph
+
+
+// The constraint graph after solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"READONLY";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = _4\l"];
+"STOREDANYTHING";
+"INTEGER";
+"__fmt";
+"PARM_RESTRICT";
+"__printf_chk";
+"_4";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "PARM_RESTRICT";
+"__fmt" -> "ESCAPED";
+"PARM_RESTRICT" -> "ESCAPED";
+"_4" -> "ESCAPED";
+"_4" -> "PARM_RESTRICT";
+}
+
+
+
+Points-to sets
+
+ANYTHING = { ANYTHING }
+READONLY = { READONLY }
+ESCAPED = { ESCAPED NONLOCAL PARM_RESTRICT }
+NONLOCAL = { ESCAPED NONLOCAL } same as _4
+STOREDANYTHING = { }
+INTEGER = { ANYTHING }
+__fmt = { PARM_RESTRICT }
+PARM_RESTRICT = { ESCAPED NONLOCAL }
+__printf_chk = { }
+_4 = { ESCAPED NONLOCAL }
+_5 = { ESCAPED NONLOCAL } same as _4
+
+
+Alias information for printf
+
+Aliased symbols
+
+
+Call clobber information
+
+ESCAPED, points-to non-local, points-to vars: { D.4778 } (nonlocal, escaped heap)
+
+Flow-insensitive points-to information
+
+__fmt_2(D), points-to vars: { D.4778 } (nonlocal, escaped heap)
+
+printf (const char * restrict __fmt)
+{
+  int _4;
+  int _5;
+
+  <bb 2>:
+  [/usr/include/x86_64-linux-gnu/bits/stdio2.h : 104:72] _4 = __printf_chk (1, __fmt_2(D), __builtin_va_arg_pack ());
+  [/usr/include/x86_64-linux-gnu/bits/stdio2.h : 104:72] _5 = _4;
+  [/usr/include/x86_64-linux-gnu/bits/stdio2.h : 104:72] return _5;
+
+}
+
+
+
+;; Function correlation(double*, double*, double*, double*) (_Z11correlationPdS_S_S_, funcdef_no=48, decl_uid=4651, symbol_order=48)
+
+Points-to analysis
+
+Constraints:
+
+ANYTHING = &ANYTHING
+READONLY = &READONLY
+ESCAPED = *ESCAPED
+ESCAPED = ESCAPED + UNKNOWN
+*ESCAPED = NONLOCAL
+NONLOCAL = &NONLOCAL
+NONLOCAL = &ESCAPED
+INTEGER = &ANYTHING
+data = &NONLOCAL
+mean = &NONLOCAL
+stddev = &NONLOCAL
+symmat = &NONLOCAL
+j_21 = &NULL
+_23 = j_5
+_24 = _23
+_24 = &NONLOCAL
+_26 = mean + UNKNOWN
+i_28 = &NULL
+_32 = j_5
+_33 = _32
+_33 = &NONLOCAL
+_34 = mean + UNKNOWN
+_36 = i_1
+_36 = &NONLOCAL
+_37 = _36
+_37 = j_5
+_38 = _37
+_39 = _38
+_39 = &NONLOCAL
+_41 = data + UNKNOWN
+i_45 = i_1
+i_45 = &NONLOCAL
+i_1 = &NULL
+i_1 = i_45
+_49 = j_5
+_50 = _49
+_50 = &NONLOCAL
+_51 = mean + UNKNOWN
+j_55 = j_5
+j_55 = &NONLOCAL
+j_5 = &NULL
+j_5 = j_55
+j_56 = &NULL
+_57 = j_6
+_58 = _57
+_58 = &NONLOCAL
+_60 = stddev + UNKNOWN
+i_62 = &NULL
+_66 = j_6
+_67 = _66
+_67 = &NONLOCAL
+_68 = stddev + UNKNOWN
+_81 = i_2
+_81 = &NONLOCAL
+_82 = _81
+_82 = j_6
+_83 = _82
+_84 = _83
+_84 = &NONLOCAL
+_85 = data + UNKNOWN
+_87 = j_6
+_88 = _87
+_88 = &NONLOCAL
+_89 = mean + UNKNOWN
+i_95 = i_2
+i_95 = &NONLOCAL
+i_2 = &NULL
+i_2 = i_95
+_99 = j_6
+_100 = _99
+_100 = &NONLOCAL
+_101 = stddev + UNKNOWN
+_108 = j_6
+_109 = _108
+_109 = &NONLOCAL
+_110 = stddev + UNKNOWN
+ESCAPED = _111
+_113 = NONLOCAL
+_118 = j_6
+_119 = _118
+_119 = &NONLOCAL
+_120 = stddev + UNKNOWN
+_123 = j_6
+_124 = _123
+_124 = &NONLOCAL
+_125 = stddev + UNKNOWN
+_10 = _120
+_10 = _125
+iftmp.0_11 = &NONLOCAL
+iftmp.0_11 = iftmp.0_126
+j_128 = j_6
+j_128 = &NONLOCAL
+j_6 = &NULL
+j_6 = j_128
+i_129 = &NULL
+j_130 = &NULL
+_136 = i_3
+_136 = &NONLOCAL
+_137 = _136
+_137 = j_7
+_138 = _137
+_139 = _138
+_139 = &NONLOCAL
+_140 = data + UNKNOWN
+_142 = j_7
+_143 = _142
+_143 = &NONLOCAL
+_144 = mean + UNKNOWN
+_153 = i_3
+_153 = &NONLOCAL
+_154 = _153
+_154 = j_7
+_155 = _154
+_156 = _155
+_156 = &NONLOCAL
+_157 = data + UNKNOWN
+_159 = j_7
+_160 = _159
+_160 = &NONLOCAL
+_161 = stddev + UNKNOWN
+j_166 = j_7
+j_166 = &NONLOCAL
+j_7 = &NULL
+j_7 = j_166
+i_167 = i_3
+i_167 = &NONLOCAL
+i_3 = &NULL
+i_3 = i_167
+j1_168 = &NULL
+_169 = j1_8
+_169 = &NONLOCAL
+_170 = _169
+_171 = _170
+_171 = &NONLOCAL
+_173 = symmat + UNKNOWN
+j2_175 = j1_8
+j2_175 = &NONLOCAL
+_176 = j1_8
+_176 = &NONLOCAL
+_177 = _176
+_177 = j2_9
+_178 = _177
+_179 = _178
+_179 = &NONLOCAL
+_180 = symmat + UNKNOWN
+i_182 = &NULL
+_188 = j1_8
+_188 = &NONLOCAL
+_189 = _188
+_189 = j2_9
+_190 = _189
+_191 = _190
+_191 = &NONLOCAL
+_192 = symmat + UNKNOWN
+_194 = i_4
+_194 = &NONLOCAL
+_195 = _194
+_195 = j1_8
+_196 = _195
+_197 = _196
+_197 = &NONLOCAL
+_198 = data + UNKNOWN
+_200 = i_4
+_200 = &NONLOCAL
+_201 = _200
+_201 = j2_9
+_202 = _201
+_203 = _202
+_203 = &NONLOCAL
+_204 = data + UNKNOWN
+i_209 = i_4
+i_209 = &NONLOCAL
+i_4 = &NULL
+i_4 = i_209
+_210 = j2_9
+_210 = &NONLOCAL
+_211 = _210
+_211 = j1_8
+_212 = _211
+_213 = _212
+_213 = &NONLOCAL
+_214 = symmat + UNKNOWN
+_215 = j1_8
+_215 = &NONLOCAL
+_216 = _215
+_216 = j2_9
+_217 = _216
+_218 = _217
+_218 = &NONLOCAL
+_219 = symmat + UNKNOWN
+j2_222 = j2_9
+j2_222 = &NONLOCAL
+j2_9 = j2_175
+j2_9 = j2_222
+j1_223 = j1_8
+j1_223 = &NONLOCAL
+j1_8 = &NULL
+j1_8 = j1_223
+
+Collapsing static cycles and doing variable substitution
+Building predecessor graph
+Detecting pointer and location equivalences
+
+
+// The constraint graph before var-substitution in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING"[label="ANYTHING = { 2 }"];
+"READONLY"[label="READONLY = { 3 }"];
+"ESCAPED";
+"NONLOCAL"[label="NONLOCAL = { 4 5 }"];
+"STOREDANYTHING";
+"INTEGER"[label="INTEGER = { 2 }"];
+"data"[label="data = { 5 }"];
+"mean"[label="mean = { 5 }"];
+"stddev"[label="stddev = { 5 }"];
+"symmat"[label="symmat = { 5 }"];
+"j_21"[label="j_21 = { 1 }"];
+"_23";
+"j_5"[label="j_5 = { 1 5 }"];
+"_24"[label="_24 = { 5 }"];
+"_26";
+"i_28"[label="i_28 = { 1 }"];
+"_32";
+"_33"[label="_33 = { 5 }"];
+"_34";
+"_35";
+"_36"[label="_36 = { 5 }"];
+"i_1"[label="i_1 = { 1 5 }"];
+"_37";
+"_38";
+"_39"[label="_39 = { 5 }"];
+"_41";
+"_42";
+"_43";
+"_49";
+"_50"[label="_50 = { 5 }"];
+"_51";
+"_52";
+"_53";
+"j_56"[label="j_56 = { 1 }"];
+"_57";
+"j_6"[label="j_6 = { 1 5 }"];
+"_58"[label="_58 = { 5 }"];
+"_60";
+"i_62"[label="i_62 = { 1 }"];
+"_66";
+"_67"[label="_67 = { 5 }"];
+"_68";
+"_69";
+"_81"[label="_81 = { 5 }"];
+"i_2"[label="i_2 = { 1 5 }"];
+"_82";
+"_83";
+"_84"[label="_84 = { 5 }"];
+"_85";
+"_86";
+"_87";
+"_88"[label="_88 = { 5 }"];
+"_89";
+"_90";
+"_91";
+"_92";
+"_93";
+"_99";
+"_100"[label="_100 = { 5 }"];
+"_101";
+"_102";
+"_103";
+"_108";
+"_109"[label="_109 = { 5 }"];
+"_110";
+"_111";
+"sqrt";
+"_113";
+"_118";
+"_119"[label="_119 = { 5 }"];
+"_120";
+"_121";
+"iftmp.0_122";
+"_123";
+"_124"[label="_124 = { 5 }"];
+"_125";
+"iftmp.0_126";
+"_10";
+"iftmp.0_11"[label="iftmp.0_11 = { 5 }"];
+"i_129"[label="i_129 = { 1 }"];
+"j_130"[label="j_130 = { 1 }"];
+"_136"[label="_136 = { 5 }"];
+"i_3"[label="i_3 = { 1 5 }"];
+"_137";
+"j_7"[label="j_7 = { 1 5 }"];
+"_138";
+"_139"[label="_139 = { 5 }"];
+"_140";
+"_141";
+"_142";
+"_143"[label="_143 = { 5 }"];
+"_144";
+"_145";
+"_146";
+"_153"[label="_153 = { 5 }"];
+"_154";
+"_155";
+"_156"[label="_156 = { 5 }"];
+"_157";
+"_158";
+"_159";
+"_160"[label="_160 = { 5 }"];
+"_161";
+"_162";
+"_163";
+"_164";
+"j1_168"[label="j1_168 = { 1 }"];
+"_169"[label="_169 = { 5 }"];
+"j1_8"[label="j1_8 = { 1 5 }"];
+"_170";
+"_171"[label="_171 = { 5 }"];
+"_173";
+"j2_175"[label="j2_175 = { 5 }"];
+"_176"[label="_176 = { 5 }"];
+"_177";
+"j2_9"[label="j2_9 = { 5 }"];
+"_178";
+"_179"[label="_179 = { 5 }"];
+"_180";
+"i_182"[label="i_182 = { 1 }"];
+"_188"[label="_188 = { 5 }"];
+"_189";
+"_190";
+"_191"[label="_191 = { 5 }"];
+"_192";
+"_193";
+"_194"[label="_194 = { 5 }"];
+"i_4"[label="i_4 = { 1 5 }"];
+"_195";
+"_196";
+"_197"[label="_197 = { 5 }"];
+"_198";
+"_199";
+"_200"[label="_200 = { 5 }"];
+"_201";
+"_202";
+"_203"[label="_203 = { 5 }"];
+"_204";
+"_205";
+"_206";
+"_207";
+"_210"[label="_210 = { 5 }"];
+"_211";
+"_212";
+"_213"[label="_213 = { 5 }"];
+"_214";
+"_215"[label="_215 = { 5 }"];
+"_216";
+"_217";
+"_218"[label="_218 = { 5 }"];
+"_219";
+"_220";
+"*NULL";
+"*ANYTHING";
+"*READONLY";
+"*ESCAPED";
+"*NONLOCAL";
+"*STOREDANYTHING";
+"*INTEGER";
+"*data";
+"*mean";
+"*stddev";
+"*symmat";
+"*j_21";
+"*_23";
+"*j_5";
+"*_24";
+"*_26";
+"*i_28";
+"*_32";
+"*_33";
+"*_34";
+"*_35";
+"*_36";
+"*i_1";
+"*_37";
+"*_38";
+"*_39";
+"*_41";
+"*_42";
+"*_43";
+"*i_45";
+"*_49";
+"*_50";
+"*_51";
+"*_52";
+"*_53";
+"*j_55";
+"*j_56";
+"*_57";
+"*j_6";
+"*_58";
+"*_60";
+"*i_62";
+"*_66";
+"*_67";
+"*_68";
+"*_69";
+"*_81";
+"*i_2";
+"*_82";
+"*_83";
+"*_84";
+"*_85";
+"*_86";
+"*_87";
+"*_88";
+"*_89";
+"*_90";
+"*_91";
+"*_92";
+"*_93";
+"*i_95";
+"*_99";
+"*_100";
+"*_101";
+"*_102";
+"*_103";
+"*_108";
+"*_109";
+"*_110";
+"*_111";
+"*sqrt";
+"*_113";
+"*_118";
+"*_119";
+"*_120";
+"*_121";
+"*iftmp.0_122";
+"*_123";
+"*_124";
+"*_125";
+"*iftmp.0_126";
+"*_10";
+"*iftmp.0_11";
+"*j_128";
+"*i_129";
+"*j_130";
+"*_136";
+"*i_3";
+"*_137";
+"*j_7";
+"*_138";
+"*_139";
+"*_140";
+"*_141";
+"*_142";
+"*_143";
+"*_144";
+"*_145";
+"*_146";
+"*_153";
+"*_154";
+"*_155";
+"*_156";
+"*_157";
+"*_158";
+"*_159";
+"*_160";
+"*_161";
+"*_162";
+"*_163";
+"*_164";
+"*j_166";
+"*i_167";
+"*j1_168";
+"*_169";
+"*j1_8";
+"*_170";
+"*_171";
+"*_173";
+"*j2_175";
+"*_176";
+"*_177";
+"*j2_9";
+"*_178";
+"*_179";
+"*_180";
+"*i_182";
+"*_188";
+"*_189";
+"*_190";
+"*_191";
+"*_192";
+"*_193";
+"*_194";
+"*i_4";
+"*_195";
+"*_196";
+"*_197";
+"*_198";
+"*_199";
+"*_200";
+"*_201";
+"*_202";
+"*_203";
+"*_204";
+"*_205";
+"*_206";
+"*_207";
+"*i_209";
+"*_210";
+"*_211";
+"*_212";
+"*_213";
+"*_214";
+"*_215";
+"*_216";
+"*_217";
+"*_218";
+"*_219";
+"*_220";
+"*j2_222";
+"*j1_223";
+
+  // Edges in the constraint graph:
+"_111" -> "ESCAPED";
+"*ESCAPED" -> "ESCAPED";
+"j_5" -> "_23";
+"j_5" -> "j_5";
+"j_5" -> "j_5";
+"_23" -> "_24";
+"j_5" -> "_32";
+"_32" -> "_33";
+"i_1" -> "_36";
+"i_1" -> "i_1";
+"i_1" -> "i_1";
+"j_5" -> "_37";
+"_36" -> "_37";
+"_37" -> "_38";
+"_38" -> "_39";
+"j_5" -> "_49";
+"_49" -> "_50";
+"j_6" -> "_57";
+"j_6" -> "j_6";
+"j_6" -> "j_6";
+"_57" -> "_58";
+"j_6" -> "_66";
+"_66" -> "_67";
+"i_2" -> "_81";
+"i_2" -> "i_2";
+"i_2" -> "i_2";
+"j_6" -> "_82";
+"_81" -> "_82";
+"_82" -> "_83";
+"_83" -> "_84";
+"j_6" -> "_87";
+"_87" -> "_88";
+"j_6" -> "_99";
+"_99" -> "_100";
+"j_6" -> "_108";
+"_108" -> "_109";
+"NONLOCAL" -> "_113";
+"j_6" -> "_118";
+"_118" -> "_119";
+"j_6" -> "_123";
+"_123" -> "_124";
+"_120" -> "_10";
+"_125" -> "_10";
+"iftmp.0_126" -> "iftmp.0_11";
+"i_3" -> "_136";
+"i_3" -> "i_3";
+"i_3" -> "i_3";
+"_136" -> "_137";
+"j_7" -> "_137";
+"j_7" -> "j_7";
+"j_7" -> "j_7";
+"_137" -> "_138";
+"_138" -> "_139";
+"j_7" -> "_142";
+"_142" -> "_143";
+"i_3" -> "_153";
+"j_7" -> "_154";
+"_153" -> "_154";
+"_154" -> "_155";
+"_155" -> "_156";
+"j_7" -> "_159";
+"_159" -> "_160";
+"j1_8" -> "_169";
+"j1_8" -> "j1_8";
+"j1_8" -> "j1_8";
+"_169" -> "_170";
+"_170" -> "_171";
+"j1_8" -> "j2_175";
+"j1_8" -> "_176";
+"_176" -> "_177";
+"j2_9" -> "_177";
+"j2_175" -> "j2_9";
+"j2_9" -> "j2_9";
+"j2_9" -> "j2_9";
+"_177" -> "_178";
+"_178" -> "_179";
+"j1_8" -> "_188";
+"j2_9" -> "_189";
+"_188" -> "_189";
+"_189" -> "_190";
+"_190" -> "_191";
+"i_4" -> "_194";
+"i_4" -> "i_4";
+"i_4" -> "i_4";
+"j1_8" -> "_195";
+"_194" -> "_195";
+"_195" -> "_196";
+"_196" -> "_197";
+"i_4" -> "_200";
+"j2_9" -> "_201";
+"_200" -> "_201";
+"_201" -> "_202";
+"_202" -> "_203";
+"j2_9" -> "_210";
+"j1_8" -> "_211";
+"_210" -> "_211";
+"_211" -> "_212";
+"_212" -> "_213";
+"j1_8" -> "_215";
+"j2_9" -> "_216";
+"_215" -> "_216";
+"_216" -> "_217";
+"_217" -> "_218";
+"NONLOCAL" -> "*ESCAPED";
+}
+
+
+Rewriting constraints and unifying variables
+Uniting pointer but not location equivalent variables
+Finding indirect cycles
+
+
+// The constraint graph before solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"READONLY";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"STOREDANYTHING";
+"INTEGER";
+"data" [label="\N\n_26 = data + UNKNOWN\l_34 = data + UNKNOWN\l_41 = data + UNKNOWN\l_51 = data + UNKNOWN\l_60 = data + UNKNOWN\l_68 = data + UNKNOWN\l_85 = data + UNKNOWN\l_89 = data + UNKNOWN\l_101 = data + UNKNOWN\l_110 = data + UNKNOWN\l_120 = data + UNKNOWN\l_125 = data + UNKNOWN\l_140 = data + UNKNOWN\l_144 = data + UNKNOWN\l_157 = data + UNKNOWN\l_161 = data + UNKNOWN\l_173 = data + UNKNOWN\l_180 = data + UNKNOWN\l_192 = data + UNKNOWN\l_198 = data + UNKNOWN\l_204 = data + UNKNOWN\l_214 = data + UNKNOWN\l_219 = data + UNKNOWN\l"];
+"j_21";
+"_23";
+"_26";
+"_34";
+"_35";
+"_41";
+"_42";
+"_43";
+"_51";
+"_52";
+"_53";
+"_60";
+"_68";
+"_69";
+"_85";
+"_86";
+"_89";
+"_90";
+"_91";
+"_92";
+"_93";
+"_101";
+"_102";
+"_103";
+"_110";
+"_111";
+"sqrt";
+"_113";
+"_120";
+"_121";
+"iftmp.0_122";
+"_125";
+"iftmp.0_126";
+"_10";
+"_140";
+"_141";
+"_144";
+"_145";
+"_146";
+"_157";
+"_158";
+"_161";
+"_162";
+"_163";
+"_164";
+"_173";
+"_180";
+"_192";
+"_193";
+"_198";
+"_199";
+"_204";
+"_205";
+"_206";
+"_207";
+"_214";
+"_219";
+"_220";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "_26";
+"STOREDANYTHING" -> "_34";
+"STOREDANYTHING" -> "_41";
+"STOREDANYTHING" -> "_51";
+"STOREDANYTHING" -> "_60";
+"STOREDANYTHING" -> "_68";
+"STOREDANYTHING" -> "_85";
+"STOREDANYTHING" -> "_89";
+"STOREDANYTHING" -> "_101";
+"STOREDANYTHING" -> "_110";
+"STOREDANYTHING" -> "_120";
+"STOREDANYTHING" -> "_125";
+"STOREDANYTHING" -> "_140";
+"STOREDANYTHING" -> "_144";
+"STOREDANYTHING" -> "_157";
+"STOREDANYTHING" -> "_161";
+"STOREDANYTHING" -> "_173";
+"STOREDANYTHING" -> "_180";
+"STOREDANYTHING" -> "_192";
+"STOREDANYTHING" -> "_198";
+"STOREDANYTHING" -> "_204";
+"STOREDANYTHING" -> "_214";
+"STOREDANYTHING" -> "_219";
+"_120" -> "_10";
+"_125" -> "_10";
+}
+
+
+Solving graph
+
+
+// The constraint graph after solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"READONLY";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"STOREDANYTHING";
+"INTEGER";
+"data" [label="\N\n_26 = data + UNKNOWN\l_34 = data + UNKNOWN\l_41 = data + UNKNOWN\l_51 = data + UNKNOWN\l_60 = data + UNKNOWN\l_68 = data + UNKNOWN\l_85 = data + UNKNOWN\l_89 = data + UNKNOWN\l_101 = data + UNKNOWN\l_110 = data + UNKNOWN\l_120 = data + UNKNOWN\l_125 = data + UNKNOWN\l_140 = data + UNKNOWN\l_144 = data + UNKNOWN\l_157 = data + UNKNOWN\l_161 = data + UNKNOWN\l_173 = data + UNKNOWN\l_180 = data + UNKNOWN\l_192 = data + UNKNOWN\l_198 = data + UNKNOWN\l_204 = data + UNKNOWN\l_214 = data + UNKNOWN\l_219 = data + UNKNOWN\l"];
+"j_21";
+"_23";
+"_26";
+"_34";
+"_35";
+"_41";
+"_42";
+"_43";
+"_51";
+"_52";
+"_53";
+"_60";
+"_68";
+"_69";
+"_85";
+"_86";
+"_89";
+"_90";
+"_91";
+"_92";
+"_93";
+"_101";
+"_102";
+"_103";
+"_110";
+"_111";
+"sqrt";
+"_113";
+"_120";
+"_121";
+"iftmp.0_122";
+"_125";
+"iftmp.0_126";
+"_10";
+"_140";
+"_141";
+"_144";
+"_145";
+"_146";
+"_157";
+"_158";
+"_161";
+"_162";
+"_163";
+"_164";
+"_173";
+"_180";
+"_192";
+"_193";
+"_198";
+"_199";
+"_204";
+"_205";
+"_206";
+"_207";
+"_214";
+"_219";
+"_220";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "_26";
+"STOREDANYTHING" -> "_34";
+"STOREDANYTHING" -> "_41";
+"STOREDANYTHING" -> "_51";
+"STOREDANYTHING" -> "_60";
+"STOREDANYTHING" -> "_68";
+"STOREDANYTHING" -> "_85";
+"STOREDANYTHING" -> "_89";
+"STOREDANYTHING" -> "_101";
+"STOREDANYTHING" -> "_110";
+"STOREDANYTHING" -> "_120";
+"STOREDANYTHING" -> "_125";
+"STOREDANYTHING" -> "_140";
+"STOREDANYTHING" -> "_144";
+"STOREDANYTHING" -> "_157";
+"STOREDANYTHING" -> "_161";
+"STOREDANYTHING" -> "_173";
+"STOREDANYTHING" -> "_180";
+"STOREDANYTHING" -> "_192";
+"STOREDANYTHING" -> "_198";
+"STOREDANYTHING" -> "_204";
+"STOREDANYTHING" -> "_214";
+"STOREDANYTHING" -> "_219";
+"_120" -> "_10";
+"_125" -> "_10";
+}
+
+
+
+Points-to sets
+
+ANYTHING = { ANYTHING }
+READONLY = { READONLY }
+ESCAPED = { }
+NONLOCAL = { ESCAPED NONLOCAL } same as _113
+STOREDANYTHING = { }
+INTEGER = { ANYTHING }
+data = { NONLOCAL }
+mean = { NONLOCAL } same as data
+stddev = { NONLOCAL } same as data
+symmat = { NONLOCAL } same as data
+j_21 = { NULL }
+_23 = { NULL NONLOCAL }
+j_5 = { NULL NONLOCAL } same as _23
+_24 = { NULL NONLOCAL } same as _23
+_26 = { NONLOCAL }
+i_28 = { NULL } same as j_21
+_32 = { NULL NONLOCAL } same as _23
+_33 = { NULL NONLOCAL } same as _23
+_34 = { NONLOCAL }
+_35 = { }
+_36 = { NULL NONLOCAL } same as _23
+i_1 = { NULL NONLOCAL } same as _23
+_37 = { NULL NONLOCAL } same as _23
+_38 = { NULL NONLOCAL } same as _23
+_39 = { NULL NONLOCAL } same as _23
+_41 = { NONLOCAL }
+_42 = { }
+_43 = { }
+i_45 = { NULL NONLOCAL } same as _23
+_49 = { NULL NONLOCAL } same as _23
+_50 = { NULL NONLOCAL } same as _23
+_51 = { NONLOCAL }
+_52 = { }
+_53 = { }
+j_55 = { NULL NONLOCAL } same as _23
+j_56 = { NULL } same as j_21
+_57 = { NULL NONLOCAL } same as _23
+j_6 = { NULL NONLOCAL } same as _23
+_58 = { NULL NONLOCAL } same as _23
+_60 = { NONLOCAL }
+i_62 = { NULL } same as j_21
+_66 = { NULL NONLOCAL } same as _23
+_67 = { NULL NONLOCAL } same as _23
+_68 = { NONLOCAL }
+_69 = { }
+_81 = { NULL NONLOCAL } same as _23
+i_2 = { NULL NONLOCAL } same as _23
+_82 = { NULL NONLOCAL } same as _23
+_83 = { NULL NONLOCAL } same as _23
+_84 = { NULL NONLOCAL } same as _23
+_85 = { NONLOCAL }
+_86 = { }
+_87 = { NULL NONLOCAL } same as _23
+_88 = { NULL NONLOCAL } same as _23
+_89 = { NONLOCAL }
+_90 = { }
+_91 = { }
+_92 = { }
+_93 = { }
+i_95 = { NULL NONLOCAL } same as _23
+_99 = { NULL NONLOCAL } same as _23
+_100 = { NULL NONLOCAL } same as _23
+_101 = { NONLOCAL }
+_102 = { }
+_103 = { }
+_108 = { NULL NONLOCAL } same as _23
+_109 = { NULL NONLOCAL } same as _23
+_110 = { NONLOCAL }
+_111 = { }
+sqrt = { }
+_113 = { ESCAPED NONLOCAL }
+_118 = { NULL NONLOCAL } same as _23
+_119 = { NULL NONLOCAL } same as _23
+_120 = { NONLOCAL }
+_121 = { }
+iftmp.0_122 = { }
+_123 = { NULL NONLOCAL } same as _23
+_124 = { NULL NONLOCAL } same as _23
+_125 = { NONLOCAL }
+iftmp.0_126 = { }
+_10 = { NONLOCAL }
+iftmp.0_11 = { NONLOCAL } same as data
+j_128 = { NULL NONLOCAL } same as _23
+i_129 = { NULL } same as j_21
+j_130 = { NULL } same as j_21
+_136 = { NULL NONLOCAL } same as _23
+i_3 = { NULL NONLOCAL } same as _23
+_137 = { NULL NONLOCAL } same as _23
+j_7 = { NULL NONLOCAL } same as _23
+_138 = { NULL NONLOCAL } same as _23
+_139 = { NULL NONLOCAL } same as _23
+_140 = { NONLOCAL }
+_141 = { }
+_142 = { NULL NONLOCAL } same as _23
+_143 = { NULL NONLOCAL } same as _23
+_144 = { NONLOCAL }
+_145 = { }
+_146 = { }
+_153 = { NULL NONLOCAL } same as _23
+_154 = { NULL NONLOCAL } same as _23
+_155 = { NULL NONLOCAL } same as _23
+_156 = { NULL NONLOCAL } same as _23
+_157 = { NONLOCAL }
+_158 = { }
+_159 = { NULL NONLOCAL } same as _23
+_160 = { NULL NONLOCAL } same as _23
+_161 = { NONLOCAL }
+_162 = { }
+_163 = { }
+_164 = { }
+j_166 = { NULL NONLOCAL } same as _23
+i_167 = { NULL NONLOCAL } same as _23
+j1_168 = { NULL } same as j_21
+_169 = { NULL NONLOCAL } same as _23
+j1_8 = { NULL NONLOCAL } same as _23
+_170 = { NULL NONLOCAL } same as _23
+_171 = { NULL NONLOCAL } same as _23
+_173 = { NONLOCAL }
+j2_175 = { NULL NONLOCAL } same as _23
+_176 = { NULL NONLOCAL } same as _23
+_177 = { NULL NONLOCAL } same as _23
+j2_9 = { NULL NONLOCAL } same as _23
+_178 = { NULL NONLOCAL } same as _23
+_179 = { NULL NONLOCAL } same as _23
+_180 = { NONLOCAL }
+i_182 = { NULL } same as j_21
+_188 = { NULL NONLOCAL } same as _23
+_189 = { NULL NONLOCAL } same as _23
+_190 = { NULL NONLOCAL } same as _23
+_191 = { NULL NONLOCAL } same as _23
+_192 = { NONLOCAL }
+_193 = { }
+_194 = { NULL NONLOCAL } same as _23
+i_4 = { NULL NONLOCAL } same as _23
+_195 = { NULL NONLOCAL } same as _23
+_196 = { NULL NONLOCAL } same as _23
+_197 = { NULL NONLOCAL } same as _23
+_198 = { NONLOCAL }
+_199 = { }
+_200 = { NULL NONLOCAL } same as _23
+_201 = { NULL NONLOCAL } same as _23
+_202 = { NULL NONLOCAL } same as _23
+_203 = { NULL NONLOCAL } same as _23
+_204 = { NONLOCAL }
+_205 = { }
+_206 = { }
+_207 = { }
+i_209 = { NULL NONLOCAL } same as _23
+_210 = { NULL NONLOCAL } same as _23
+_211 = { NULL NONLOCAL } same as _23
+_212 = { NULL NONLOCAL } same as _23
+_213 = { NULL NONLOCAL } same as _23
+_214 = { NONLOCAL }
+_215 = { NULL NONLOCAL } same as _23
+_216 = { NULL NONLOCAL } same as _23
+_217 = { NULL NONLOCAL } same as _23
+_218 = { NULL NONLOCAL } same as _23
+_219 = { NONLOCAL }
+_220 = { }
+j2_222 = { NULL NONLOCAL } same as _23
+j1_223 = { NULL NONLOCAL } same as _23
+
+
+Alias information for correlation(double*, double*, double*, double*)
+
+Aliased symbols
+
+
+Call clobber information
+
+ESCAPED, points-to vars: { }
+
+Flow-insensitive points-to information
+
+_10, points-to non-local, points-to vars: { }
+mean_25(D), points-to non-local, points-to vars: { }
+_26, points-to non-local, points-to vars: { }
+_34, points-to non-local, points-to vars: { }
+data_40(D), points-to non-local, points-to vars: { }
+_41, points-to non-local, points-to vars: { }
+_51, points-to non-local, points-to vars: { }
+stddev_59(D), points-to non-local, points-to vars: { }
+_60, points-to non-local, points-to vars: { }
+_68, points-to non-local, points-to vars: { }
+_85, points-to non-local, points-to vars: { }
+_89, points-to non-local, points-to vars: { }
+_101, points-to non-local, points-to vars: { }
+_110, points-to non-local, points-to vars: { }
+_120, points-to non-local, points-to vars: { }
+_125, points-to non-local, points-to vars: { }
+_140, points-to non-local, points-to vars: { }
+_144, points-to non-local, points-to vars: { }
+_157, points-to non-local, points-to vars: { }
+_161, points-to non-local, points-to vars: { }
+symmat_172(D), points-to non-local, points-to vars: { }
+_173, points-to non-local, points-to vars: { }
+_180, points-to non-local, points-to vars: { }
+_192, points-to non-local, points-to vars: { }
+_198, points-to non-local, points-to vars: { }
+_204, points-to non-local, points-to vars: { }
+_214, points-to non-local, points-to vars: { }
+_219, points-to non-local, points-to vars: { }
+
+correlation(double*, double*, double*, double*) (double * data, double * mean, double * stddev, double * symmat)
+{
+  int j2;
+  int j1;
+  int j;
+  int i;
+  double * _10;
+  double iftmp.0_11;
+  long unsigned int _23;
+  long unsigned int _24;
+  double * _26;
+  long unsigned int _32;
+  long unsigned int _33;
+  double * _34;
+  double _35;
+  int _36;
+  int _37;
+  long unsigned int _38;
+  long unsigned int _39;
+  double * _41;
+  double _42;
+  double _43;
+  long unsigned int _49;
+  long unsigned int _50;
+  double * _51;
+  double _52;
+  double _53;
+  long unsigned int _57;
+  long unsigned int _58;
+  double * _60;
+  long unsigned int _66;
+  long unsigned int _67;
+  double * _68;
+  double _69;
+  int _81;
+  int _82;
+  long unsigned int _83;
+  long unsigned int _84;
+  double * _85;
+  double _86;
+  long unsigned int _87;
+  long unsigned int _88;
+  double * _89;
+  double _90;
+  double _91;
+  double _92;
+  double _93;
+  long unsigned int _99;
+  long unsigned int _100;
+  double * _101;
+  double _102;
+  double _103;
+  long unsigned int _108;
+  long unsigned int _109;
+  double * _110;
+  double _111;
+  double _113;
+  long unsigned int _118;
+  long unsigned int _119;
+  double * _120;
+  double _121;
+  double iftmp.0_122;
+  long unsigned int _123;
+  long unsigned int _124;
+  double * _125;
+  double iftmp.0_126;
+  int _136;
+  int _137;
+  long unsigned int _138;
+  long unsigned int _139;
+  double * _140;
+  double _141;
+  long unsigned int _142;
+  long unsigned int _143;
+  double * _144;
+  double _145;
+  double _146;
+  int _153;
+  int _154;
+  long unsigned int _155;
+  long unsigned int _156;
+  double * _157;
+  double _158;
+  long unsigned int _159;
+  long unsigned int _160;
+  double * _161;
+  double _162;
+  double _163;
+  double _164;
+  int _169;
+  long unsigned int _170;
+  long unsigned int _171;
+  double * _173;
+  int _176;
+  int _177;
+  long unsigned int _178;
+  long unsigned int _179;
+  double * _180;
+  int _188;
+  int _189;
+  long unsigned int _190;
+  long unsigned int _191;
+  double * _192;
+  double _193;
+  int _194;
+  int _195;
+  long unsigned int _196;
+  long unsigned int _197;
+  double * _198;
+  double _199;
+  int _200;
+  int _201;
+  long unsigned int _202;
+  long unsigned int _203;
+  double * _204;
+  double _205;
+  double _206;
+  double _207;
+  int _210;
+  int _211;
+  long unsigned int _212;
+  long unsigned int _213;
+  double * _214;
+  int _215;
+  int _216;
+  long unsigned int _217;
+  long unsigned int _218;
+  double * _219;
+  double _220;
+
+  <bb 2>:
+  [corr_ref.c : 24:14] j_21 = 0;
+  [corr_ref.c : 24 : 4] goto <bb 7>;
+
+  <bb 3>:
+  [corr_ref.c : 26:11] _23 = (long unsigned int) j_5;
+  [corr_ref.c : 26:11] _24 = _23 * 8;
+  [corr_ref.c : 26:11] _26 = mean_25(D) + _24;
+  [corr_ref.c : 26:19] [corr_ref.c : 26] *_26 = 0.0;
+  [corr_ref.c : 28:16] i_28 = 0;
+  [corr_ref.c : 28 : 6] goto <bb 5>;
+
+  <bb 4>:
+  [corr_ref.c : 30:26] _32 = (long unsigned int) j_5;
+  [corr_ref.c : 30:26] _33 = _32 * 8;
+  [corr_ref.c : 30:26] _34 = mean_25(D) + _33;
+  [corr_ref.c : 30:26] _35 = [corr_ref.c : 30] *_34;
+  [corr_ref.c : 30:21] _36 = i_1 * 256;
+  [corr_ref.c : 30:23] _37 = _36 + j_5;
+  [corr_ref.c : 30:25] _38 = (long unsigned int) _37;
+  [corr_ref.c : 30:25] _39 = _38 * 8;
+  [corr_ref.c : 30:25] _41 = data_40(D) + _39;
+  [corr_ref.c : 30:25] _42 = [corr_ref.c : 30] *_41;
+  [corr_ref.c : 30:26] _43 = _35 + _42;
+  [corr_ref.c : 30:26] [corr_ref.c : 30] *_34 = _43;
+  [corr_ref.c : 28:6] i_45 = i_1 + 1;
+
+  <bb 5>:
+  # i_1 = PHI <[corr_ref.c : 28:16] 0(3), [corr_ref.c : 28:6] i_45(4)>
+  [corr_ref.c : 28:6] if (i_1 <= 255)
+    goto <bb 4>;
+  else
+    goto <bb 6>;
+
+  <bb 6>:
+  [corr_ref.c : 33:28] _49 = (long unsigned int) j_5;
+  [corr_ref.c : 33:28] _50 = _49 * 8;
+  [corr_ref.c : 33:28] _51 = mean_25(D) + _50;
+  [corr_ref.c : 33:28] _52 = [corr_ref.c : 33] *_51;
+  [corr_ref.c : 33:28] _53 = _52 / 3.214212e+6;
+  [corr_ref.c : 33:28] [corr_ref.c : 33] *_51 = _53;
+  [corr_ref.c : 24:4] j_55 = j_5 + 1;
+
+  <bb 7>:
+  # j_5 = PHI <[corr_ref.c : 24:14] 0(2), [corr_ref.c : 24:4] j_55(6)>
+  [corr_ref.c : 24:4] if (j_5 <= 255)
+    goto <bb 3>;
+  else
+    goto <bb 8>;
+
+  <bb 8>:
+  [corr_ref.c : 37:14] j_56 = 0;
+  [corr_ref.c : 37 : 4] goto <bb 16>;
+
+  <bb 9>:
+  [corr_ref.c : 39:14] _57 = (long unsigned int) j_6;
+  [corr_ref.c : 39:14] _58 = _57 * 8;
+  [corr_ref.c : 39:14] _60 = stddev_59(D) + _58;
+  [corr_ref.c : 39:22] [corr_ref.c : 39] *_60 = 0.0;
+  [corr_ref.c : 41:13] i_62 = 0;
+  [corr_ref.c : 41 : 3] goto <bb 11>;
+
+  <bb 10>:
+  [corr_ref.c : 43:66] _66 = (long unsigned int) j_6;
+  [corr_ref.c : 43:66] _67 = _66 * 8;
+  [corr_ref.c : 43:66] _68 = stddev_59(D) + _67;
+  [corr_ref.c : 43:66] _69 = [corr_ref.c : 43] *_68;
+  [corr_ref.c : 43:50] _81 = i_2 * 256;
+  [corr_ref.c : 43:52] _82 = _81 + j_6;
+  [corr_ref.c : 43:54] _83 = (long unsigned int) _82;
+  [corr_ref.c : 43:54] _84 = _83 * 8;
+  [corr_ref.c : 43:54] _85 = data_40(D) + _84;
+  [corr_ref.c : 43:54] _86 = [corr_ref.c : 43] *_85;
+  [corr_ref.c : 43:64] _87 = (long unsigned int) j_6;
+  [corr_ref.c : 43:64] _88 = _87 * 8;
+  [corr_ref.c : 43:64] _89 = mean_25(D) + _88;
+  [corr_ref.c : 43:64] _90 = [corr_ref.c : 43] *_89;
+  [corr_ref.c : 43:56] _91 = _86 - _90;
+  [corr_ref.c : 43:41] _92 = _91 * _91;
+  [corr_ref.c : 43:66] _93 = _69 + _92;
+  [corr_ref.c : 43:66] [corr_ref.c : 43] *_68 = _93;
+  [corr_ref.c : 41:3] i_95 = i_2 + 1;
+
+  <bb 11>:
+  # i_2 = PHI <[corr_ref.c : 41:13] 0(9), [corr_ref.c : 41:3] i_95(10)>
+  [corr_ref.c : 41:3] if (i_2 <= 255)
+    goto <bb 10>;
+  else
+    goto <bb 12>;
+
+  <bb 12>:
+  [corr_ref.c : 46:23] _99 = (long unsigned int) j_6;
+  [corr_ref.c : 46:23] _100 = _99 * 8;
+  [corr_ref.c : 46:23] _101 = stddev_59(D) + _100;
+  [corr_ref.c : 46:23] _102 = [corr_ref.c : 46] *_101;
+  [corr_ref.c : 46:23] _103 = _102 / 3.214212e+6;
+  [corr_ref.c : 46:23] [corr_ref.c : 46] *_101 = _103;
+  [corr_ref.c : 47:15] _108 = (long unsigned int) j_6;
+  [corr_ref.c : 47:15] _109 = _108 * 8;
+  [corr_ref.c : 47:15] _110 = stddev_59(D) + _109;
+  [corr_ref.c : 47:15] _111 = [corr_ref.c : 47] *_110;
+  [corr_ref.c : 47:15] _113 = sqrt (_111);
+  [corr_ref.c : 47:44] [corr_ref.c : 47] *_110 = _113;
+  [corr_ref.c : 48:23] _118 = (long unsigned int) j_6;
+  [corr_ref.c : 48:23] _119 = _118 * 8;
+  [corr_ref.c : 48:23] _120 = stddev_59(D) + _119;
+  [corr_ref.c : 48:23] _121 = [corr_ref.c : 48] *_120;
+  [corr_ref.c : 48:50] if (_121 <= 4.999999888241291046142578125e-3)
+    goto <bb 13>;
+  else
+    goto <bb 14>;
+
+  <bb 13>:
+  [corr_ref.c : 48:50] iftmp.0_122 = 1.0e+0;
+  [0 : 0] goto <bb 15>;
+
+  <bb 14>:
+  [corr_ref.c : 48:49] _123 = (long unsigned int) j_6;
+  [corr_ref.c : 48:49] _124 = _123 * 8;
+  [corr_ref.c : 48:49] _125 = stddev_59(D) + _124;
+  [corr_ref.c : 48:50] iftmp.0_126 = [corr_ref.c : 48] *_125;
+
+  <bb 15>:
+  # _10 = PHI <[corr_ref.c : 48:23] _120(13), [corr_ref.c : 48:49] _125(14)>
+  # iftmp.0_11 = PHI <[corr_ref.c : 48:50] 1.0e+0(13), [corr_ref.c : 48:50] iftmp.0_126(14)>
+  [corr_ref.c : 48:50] [corr_ref.c : 48] *_10 = iftmp.0_11;
+  [corr_ref.c : 37:4] j_128 = j_6 + 1;
+
+  <bb 16>:
+  # j_6 = PHI <[corr_ref.c : 37:14] 0(8), [corr_ref.c : 37:4] j_128(15)>
+  [corr_ref.c : 37:4] if (j_6 <= 255)
+    goto <bb 9>;
+  else
+    goto <bb 17>;
+
+  <bb 17>:
+  [corr_ref.c : 52:14] i_129 = 0;
+  [corr_ref.c : 52 : 4] goto <bb 22>;
+
+  <bb 18>:
+  [corr_ref.c : 54:13] j_130 = 0;
+  [corr_ref.c : 54 : 3] goto <bb 20>;
+
+  <bb 19>:
+  [corr_ref.c : 56:26] _136 = i_3 * 256;
+  [corr_ref.c : 56:26] _137 = _136 + j_7;
+  [corr_ref.c : 56:26] _138 = (long unsigned int) _137;
+  [corr_ref.c : 56:26] _139 = _138 * 8;
+  [corr_ref.c : 56:26] _140 = data_40(D) + _139;
+  [corr_ref.c : 56:26] _141 = [corr_ref.c : 56] *_140;
+  [corr_ref.c : 56:25] _142 = (long unsigned int) j_7;
+  [corr_ref.c : 56:25] _143 = _142 * 8;
+  [corr_ref.c : 56:25] _144 = mean_25(D) + _143;
+  [corr_ref.c : 56:25] _145 = [corr_ref.c : 56] *_144;
+  [corr_ref.c : 56:26] _146 = _141 - _145;
+  [corr_ref.c : 56:26] [corr_ref.c : 56] *_140 = _146;
+  [corr_ref.c : 57:45] _153 = i_3 * 256;
+  [corr_ref.c : 57:45] _154 = _153 + j_7;
+  [corr_ref.c : 57:45] _155 = (long unsigned int) _154;
+  [corr_ref.c : 57:45] _156 = _155 * 8;
+  [corr_ref.c : 57:45] _157 = data_40(D) + _156;
+  [corr_ref.c : 57:45] _158 = [corr_ref.c : 57] *_157;
+  [corr_ref.c : 57:42] _159 = (long unsigned int) j_7;
+  [corr_ref.c : 57:42] _160 = _159 * 8;
+  [corr_ref.c : 57:42] _161 = stddev_59(D) + _160;
+  [corr_ref.c : 57:42] _162 = [corr_ref.c : 57] *_161;
+  [corr_ref.c : 57:33] _163 = _162 * 1.792822355951642975924187339842319488525390625e+3;
+  [corr_ref.c : 57:45] _164 = _158 / _163;
+  [corr_ref.c : 57:45] [corr_ref.c : 57] *_157 = _164;
+  [corr_ref.c : 54:3] j_166 = j_7 + 1;
+
+  <bb 20>:
+  # j_7 = PHI <[corr_ref.c : 54:13] 0(18), [corr_ref.c : 54:3] j_166(19)>
+  [corr_ref.c : 54:3] if (j_7 <= 255)
+    goto <bb 19>;
+  else
+    goto <bb 21>;
+
+  <bb 21>:
+  [corr_ref.c : 52:4] i_167 = i_3 + 1;
+
+  <bb 22>:
+  # i_3 = PHI <[corr_ref.c : 52:14] 0(17), [corr_ref.c : 52:4] i_167(21)>
+  [corr_ref.c : 52:4] if (i_3 <= 255)
+    goto <bb 18>;
+  else
+    goto <bb 23>;
+
+  <bb 23>:
+  [corr_ref.c : 62:15] j1_168 = 0;
+  [corr_ref.c : 62 : 4] goto <bb 31>;
+
+  <bb 24>:
+  [corr_ref.c : 64:14] _169 = j1_8 * 257;
+  [corr_ref.c : 64:17] _170 = (long unsigned int) _169;
+  [corr_ref.c : 64:17] _171 = _170 * 8;
+  [corr_ref.c : 64:17] _173 = symmat_172(D) + _171;
+  [corr_ref.c : 64:25] [corr_ref.c : 64] *_173 = 1.0e+0;
+  [corr_ref.c : 66:17] j2_175 = j1_8 + 1;
+  [corr_ref.c : 66 : 3] goto <bb 29>;
+
+  <bb 25>:
+  [corr_ref.c : 68:15] _176 = j1_8 * 256;
+  [corr_ref.c : 68:17] _177 = _176 + j2_9;
+  [corr_ref.c : 68:20] _178 = (long unsigned int) _177;
+  [corr_ref.c : 68:20] _179 = _178 * 8;
+  [corr_ref.c : 68:20] _180 = symmat_172(D) + _179;
+  [corr_ref.c : 68:28] [corr_ref.c : 68] *_180 = 0.0;
+  [corr_ref.c : 70:16] i_182 = 0;
+  [corr_ref.c : 70 : 6] goto <bb 27>;
+
+  <bb 26>:
+  [corr_ref.c : 72:56] _188 = j1_8 * 256;
+  [corr_ref.c : 72:56] _189 = _188 + j2_9;
+  [corr_ref.c : 72:56] _190 = (long unsigned int) _189;
+  [corr_ref.c : 72:56] _191 = _190 * 8;
+  [corr_ref.c : 72:56] _192 = symmat_172(D) + _191;
+  [corr_ref.c : 72:56] _193 = [corr_ref.c : 72] *_192;
+  [corr_ref.c : 72:34] _194 = i_4 * 256;
+  [corr_ref.c : 72:36] _195 = _194 + j1_8;
+  [corr_ref.c : 72:39] _196 = (long unsigned int) _195;
+  [corr_ref.c : 72:39] _197 = _196 * 8;
+  [corr_ref.c : 72:39] _198 = data_40(D) + _197;
+  [corr_ref.c : 72:39] _199 = [corr_ref.c : 72] *_198;
+  [corr_ref.c : 72:49] _200 = i_4 * 256;
+  [corr_ref.c : 72:51] _201 = _200 + j2_9;
+  [corr_ref.c : 72:54] _202 = (long unsigned int) _201;
+  [corr_ref.c : 72:54] _203 = _202 * 8;
+  [corr_ref.c : 72:54] _204 = data_40(D) + _203;
+  [corr_ref.c : 72:54] _205 = [corr_ref.c : 72] *_204;
+  [corr_ref.c : 72:41] _206 = _199 * _205;
+  [corr_ref.c : 72:56] _207 = _193 + _206;
+  [corr_ref.c : 72:56] [corr_ref.c : 72] *_192 = _207;
+  [corr_ref.c : 70:6] i_209 = i_4 + 1;
+
+  <bb 27>:
+  # i_4 = PHI <[corr_ref.c : 70:16] 0(25), [corr_ref.c : 70:6] i_209(26)>
+  [corr_ref.c : 70:6] if (i_4 <= 255)
+    goto <bb 26>;
+  else
+    goto <bb 28>;
+
+  <bb 28>:
+  [corr_ref.c : 75:15] _210 = j2_9 * 256;
+  [corr_ref.c : 75:17] _211 = _210 + j1_8;
+  [corr_ref.c : 75:20] _212 = (long unsigned int) _211;
+  [corr_ref.c : 75:20] _213 = _212 * 8;
+  [corr_ref.c : 75:20] _214 = symmat_172(D) + _213;
+  [corr_ref.c : 75:33] _215 = j1_8 * 256;
+  [corr_ref.c : 75:35] _216 = _215 + j2_9;
+  [corr_ref.c : 75:38] _217 = (long unsigned int) _216;
+  [corr_ref.c : 75:38] _218 = _217 * 8;
+  [corr_ref.c : 75:38] _219 = symmat_172(D) + _218;
+  [corr_ref.c : 75:38] _220 = [corr_ref.c : 75] *_219;
+  [corr_ref.c : 75:39] [corr_ref.c : 75] *_214 = _220;
+  [corr_ref.c : 66:3] j2_222 = j2_9 + 1;
+
+  <bb 29>:
+  # j2_9 = PHI <[corr_ref.c : 66:17] j2_175(24), [corr_ref.c : 66:3] j2_222(28)>
+  [corr_ref.c : 66:3] if (j2_9 <= 255)
+    goto <bb 25>;
+  else
+    goto <bb 30>;
+
+  <bb 30>:
+  [corr_ref.c : 62:4] j1_223 = j1_8 + 1;
+
+  <bb 31>:
+  # j1_8 = PHI <[corr_ref.c : 62:15] 0(23), [corr_ref.c : 62:4] j1_223(30)>
+  [corr_ref.c : 62:4] if (j1_8 <= 254)
+    goto <bb 24>;
+  else
+    goto <bb 32>;
+
+  <bb 32>:
+  [corr_ref.c : 79:32] [corr_ref.c : 79] MEM[(double *)symmat_172(D) + 524280B] = 1.0e+0;
+  [corr_ref.c : 80:1] return;
+
+}
+
+
+
+;; Function main (main, funcdef_no=49, decl_uid=4693, symbol_order=49)
+
+Points-to analysis
+
+Constraints:
+
+ANYTHING = &ANYTHING
+READONLY = &READONLY
+ESCAPED = *ESCAPED
+ESCAPED = ESCAPED + UNKNOWN
+*ESCAPED = NONLOCAL
+NONLOCAL = &NONLOCAL
+NONLOCAL = &ESCAPED
+INTEGER = &ANYTHING
+ESCAPED = &NONLOCAL
+data_8 = &HEAP
+ESCAPED = &NONLOCAL
+symmat_11 = &HEAP
+ESCAPED = &NONLOCAL
+mean_14 = &HEAP
+ESCAPED = &NONLOCAL
+stddev_17 = &HEAP
+ESCAPED = &NONLOCAL
+i_19 = &NULL
+_20 = i_1
+_21 = _20
+_21 = &NONLOCAL
+_22 = data_8 + UNKNOWN
+_24 = NONLOCAL
+i_28 = i_1
+i_28 = &NONLOCAL
+i_1 = &NULL
+i_1 = i_28
+ESCAPED = data_8
+ESCAPED = mean_14
+ESCAPED = stddev_17
+ESCAPED = symmat_11
+i_30 = &NULL
+_31 = i_2
+_32 = _31
+_32 = &NONLOCAL
+_33 = symmat_11 + UNKNOWN
+ESCAPED = &NONLOCAL
+ESCAPED = &READONLY
+ESCAPED = _34
+_38 = NONLOCAL
+i_36 = i_2
+i_36 = &NONLOCAL
+i_2 = &NULL
+i_2 = i_36
+ESCAPED = &NULL
+
+Collapsing static cycles and doing variable substitution
+Building predecessor graph
+Detecting pointer and location equivalences
+
+
+// The constraint graph before var-substitution in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING"[label="ANYTHING = { 2 }"];
+"READONLY"[label="READONLY = { 3 }"];
+"ESCAPED"[label="ESCAPED = { 1 3 5 }"];
+"NONLOCAL"[label="NONLOCAL = { 4 5 }"];
+"STOREDANYTHING";
+"INTEGER"[label="INTEGER = { 2 }"];
+"malloc";
+"data_8"[label="data_8 = { 10 }"];
+"HEAP";
+"symmat_11"[label="symmat_11 = { 12 }"];
+"HEAP";
+"mean_14"[label="mean_14 = { 14 }"];
+"HEAP";
+"stddev_17"[label="stddev_17 = { 16 }"];
+"HEAP";
+"srand";
+"i_19"[label="i_19 = { 1 }"];
+"_20";
+"i_1"[label="i_1 = { 1 5 }"];
+"_21"[label="_21 = { 5 }"];
+"_22";
+"rand";
+"_24";
+"_25";
+"_26";
+"_Z11correlationPdS_S_S_";
+"i_30"[label="i_30 = { 1 }"];
+"_31";
+"i_2"[label="i_2 = { 1 5 }"];
+"_32"[label="_32 = { 5 }"];
+"_33";
+"_34";
+"__printf_chk";
+"_38";
+"*NULL";
+"*ANYTHING";
+"*READONLY";
+"*ESCAPED";
+"*NONLOCAL";
+"*STOREDANYTHING";
+"*INTEGER";
+"*malloc";
+"*data_8";
+"*HEAP";
+"*symmat_11";
+"*HEAP";
+"*mean_14";
+"*HEAP";
+"*stddev_17";
+"*HEAP";
+"*srand";
+"*i_19";
+"*_20";
+"*i_1";
+"*_21";
+"*_22";
+"*rand";
+"*_24";
+"*_25";
+"*_26";
+"*i_28";
+"*_Z11correlationPdS_S_S_";
+"*i_30";
+"*_31";
+"*i_2";
+"*_32";
+"*_33";
+"*_34";
+"*__printf_chk";
+"*_38";
+"*i_36";
+
+  // Edges in the constraint graph:
+"data_8" -> "ESCAPED";
+"symmat_11" -> "ESCAPED";
+"mean_14" -> "ESCAPED";
+"stddev_17" -> "ESCAPED";
+"_34" -> "ESCAPED";
+"*ESCAPED" -> "ESCAPED";
+"i_1" -> "_20";
+"i_1" -> "i_1";
+"i_1" -> "i_1";
+"_20" -> "_21";
+"NONLOCAL" -> "_24";
+"i_2" -> "_31";
+"i_2" -> "i_2";
+"i_2" -> "i_2";
+"_31" -> "_32";
+"NONLOCAL" -> "_38";
+"NONLOCAL" -> "*ESCAPED";
+}
+
+
+Rewriting constraints and unifying variables
+Uniting pointer but not location equivalent variables
+Finding indirect cycles
+
+
+// The constraint graph before solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"READONLY";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"STOREDANYTHING";
+"INTEGER";
+"malloc";
+"data_8" [label="\N\n_22 = data_8 + UNKNOWN\l"];
+"HEAP";
+"symmat_11" [label="\N\n_33 = symmat_11 + UNKNOWN\l"];
+"HEAP";
+"mean_14";
+"HEAP";
+"stddev_17";
+"HEAP";
+"srand";
+"i_19";
+"_20";
+"_22";
+"rand";
+"_24";
+"_25";
+"_26";
+"_Z11correlationPdS_S_S_";
+"_33";
+"_34";
+"__printf_chk";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "_22";
+"STOREDANYTHING" -> "_33";
+"data_8" -> "ESCAPED";
+"symmat_11" -> "ESCAPED";
+"mean_14" -> "ESCAPED";
+"stddev_17" -> "ESCAPED";
+}
+
+
+Solving graph
+
+
+// The constraint graph after solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"READONLY";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = _24\l"];
+"STOREDANYTHING";
+"INTEGER";
+"malloc";
+"data_8" [label="\N\n_22 = data_8 + UNKNOWN\l"];
+"HEAP";
+"symmat_11" [label="\N\n_33 = symmat_11 + UNKNOWN\l"];
+"HEAP";
+"mean_14";
+"HEAP";
+"stddev_17";
+"HEAP";
+"srand";
+"i_19";
+"_20";
+"_22";
+"rand";
+"_24";
+"_25";
+"_26";
+"_Z11correlationPdS_S_S_";
+"_33";
+"_34";
+"__printf_chk";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "HEAP";
+"STOREDANYTHING" -> "_22";
+"STOREDANYTHING" -> "_33";
+"data_8" -> "ESCAPED";
+"HEAP" -> "ESCAPED";
+"symmat_11" -> "ESCAPED";
+"HEAP" -> "ESCAPED";
+"mean_14" -> "ESCAPED";
+"HEAP" -> "ESCAPED";
+"stddev_17" -> "ESCAPED";
+"HEAP" -> "ESCAPED";
+"_24" -> "ESCAPED";
+"_24" -> "HEAP";
+"_24" -> "HEAP";
+"_24" -> "HEAP";
+"_24" -> "HEAP";
+}
+
+
+
+Points-to sets
+
+ANYTHING = { ANYTHING }
+READONLY = { READONLY }
+ESCAPED = { NULL READONLY ESCAPED NONLOCAL HEAP HEAP HEAP HEAP }
+NONLOCAL = { ESCAPED NONLOCAL } same as _24
+STOREDANYTHING = { }
+INTEGER = { ANYTHING }
+malloc = { }
+data_8 = { HEAP }
+HEAP = { ESCAPED NONLOCAL }
+symmat_11 = { HEAP }
+HEAP = { ESCAPED NONLOCAL }
+mean_14 = { HEAP }
+HEAP = { ESCAPED NONLOCAL }
+stddev_17 = { HEAP }
+HEAP = { ESCAPED NONLOCAL }
+srand = { }
+i_19 = { NULL }
+_20 = { NULL NONLOCAL }
+i_1 = { NULL NONLOCAL } same as _20
+_21 = { NULL NONLOCAL } same as _20
+_22 = { HEAP }
+rand = { }
+_24 = { ESCAPED NONLOCAL }
+_25 = { }
+_26 = { }
+i_28 = { NULL NONLOCAL } same as _20
+_Z11correlationPdS_S_S_ = { }
+i_30 = { NULL } same as i_19
+_31 = { NULL NONLOCAL } same as _20
+i_2 = { NULL NONLOCAL } same as _20
+_32 = { NULL NONLOCAL } same as _20
+_33 = { HEAP }
+_34 = { }
+__printf_chk = { }
+_38 = { ESCAPED NONLOCAL } same as _24
+i_36 = { NULL NONLOCAL } same as _20
+
+
+Alias information for main
+
+Aliased symbols
+
+
+Call clobber information
+
+ESCAPED, points-to non-local, points-to NULL, points-to vars: { D.4785 D.4786 D.4787 D.4788 } (escaped heap)
+
+Flow-insensitive points-to information
+
+data_8, points-to vars: { D.4785 } (escaped heap)
+symmat_11, points-to vars: { D.4786 } (escaped heap)
+mean_14, points-to vars: { D.4787 } (escaped heap)
+stddev_17, points-to vars: { D.4788 } (escaped heap)
+_22, points-to vars: { D.4785 } (escaped heap)
+_33, points-to vars: { D.4786 } (escaped heap)
+
+main ()
+{
+  int D.4784;
+  double * stddev;
+  double * mean;
+  double * symmat;
+  double * data;
+  int i;
+  long unsigned int _20;
+  long unsigned int _21;
+  double * _22;
+  int _24;
+  double _25;
+  double _26;
+  long unsigned int _31;
+  long unsigned int _32;
+  double * _33;
+  double _34;
+  int _38;
+
+  <bb 2>:
+  [corr_ref.c : 86:51] data_8 = malloc (524288);
+  [corr_ref.c : 87:53] symmat_11 = malloc (524288);
+  [corr_ref.c : 88:49] mean_14 = malloc (2048);
+  [corr_ref.c : 89:51] stddev_17 = malloc (2048);
+  [corr_ref.c : 91:13] srand (5497);
+  [corr_ref.c : 92:15] i_19 = 0;
+  [corr_ref.c : 92 : 5] goto <bb 4>;
+
+  <bb 3>:
+  [corr_ref.c : 93:15] _20 = (long unsigned int) i_1;
+  [corr_ref.c : 93:15] _21 = _20 * 8;
+  [corr_ref.c : 93:15] _22 = data_8 + _21;
+  [corr_ref.c : 93:31] _24 = rand ();
+  [corr_ref.c : 93:33] _25 = (double) _24;
+  [corr_ref.c : 93:33] _26 = _25 / 2.147483647e+9;
+  [corr_ref.c : 93:50] [corr_ref.c : 93] *_22 = _26;
+  [corr_ref.c : 92:5] i_28 = i_1 + 1;
+
+  <bb 4>:
+  # i_1 = PHI <[corr_ref.c : 92:15] 0(2), [corr_ref.c : 92:5] i_28(3)>
+  [corr_ref.c : 92:5] if (i_1 <= 65535)
+    goto <bb 3>;
+  else
+    goto <bb 5>;
+
+  <bb 5>:
+  [corr_ref.c : 95:44] correlation (data_8, mean_14, stddev_17, symmat_11);
+  [corr_ref.c : 97:12] i_30 = 0;
+  [corr_ref.c : 97 : 2] goto <bb 8>;
+
+  <bb 6>:
+  [corr_ref.c : 98:28] _31 = (long unsigned int) i_2;
+  [corr_ref.c : 98:28] _32 = _31 * 8;
+  [corr_ref.c : 98:28] _33 = symmat_11 + _32;
+  [corr_ref.c : 98:29] _34 = [corr_ref.c : 98] *_33;
+  [/usr/include/x86_64-linux-gnu/bits/stdio2.h : 104:72] _38 = __printf_chk (1, "%.15f,", _34);
+
+  <bb 7>:
+  [corr_ref.c : 97:2] i_36 = i_2 + 1;
+
+  <bb 8>:
+  # i_2 = PHI <[corr_ref.c : 97:12] 0(5), [corr_ref.c : 97:2] i_36(7)>
+  [corr_ref.c : 97:2] if (i_2 <= 65535)
+    goto <bb 6>;
+  else
+    goto <bb 9>;
+
+  <bb 9>:
+  return 0;
+
+}
+
+
