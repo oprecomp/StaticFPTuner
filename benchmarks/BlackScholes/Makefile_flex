@@ -1,0 +1,41 @@
+TARGET = black_scholes2
+
+FLEXFLOAT_LIB_DIR  ?= ../../flexfloat/build
+FLEXFLOAT_INC_DIR  ?= ../../flexfloat/include
+LIBS = -lm  $(FLEXFLOAT_LIB_DIR)/libflexfloat.a -flto
+CC = g++
+CFLAGS = -O3 -std=c++11 -flto -I$(FLEXFLOAT_INC_DIR)
+
+CONF_MODE ?= flags
+OUTPUT_DIR ?= ./
+
+ifeq ($(CONF_MODE),flags)
+CFLAGS += -DEXP_K=11 -DFRAC_K=52  -DEXP_CND=11 -DFRAC_CND=52  -DEXP_D=11 -DFRAC_D=52  -DEXP_SQRTT=11 -DFRAC_SQRTT=52  -DEXP_EXPRT=11 -DFRAC_EXPRT=52  -DEXP_SX=11 -DFRAC_SX=52  -DEXP_RV=11 -DFRAC_RV=52  -DEXP_T=11 -DFRAC_T=52  -DEXP_CALLRESULT=11 -DFRAC_CALLRESULT=52  -DEXP_PUTRESULT=11 -DFRAC_PUTRESULT=52
+CFLAGS += -DEXP_TEMP1=11 -DFRAC_TEMP1=52 -DEXP_TEMP2=11 -DFRAC_TEMP2=52 -DEXP_TEMP3=11 -DFRAC_TEMP3=52 -DEXP_TEMP4=11 -DFRAC_TEMP4=52 -DEXP_TEMP5=11 -DFRAC_TEMP5=52
+else
+CFLAGS += $(EXT_CFLAGS)
+endif
+
+DATASET ?= 0
+CFLAGS += -DDATASET=$(DATASET)
+
+.PHONY: default all clean
+
+default: $(TARGET)
+all: default
+
+SOURCES = black_scholes_flex.c
+OBJECTS = $(patsubst %.c, $(OUTPUT_DIR)%.o, $(SOURCES))
+HEADERS = $(wildcard *.h)
+
+$(OUTPUT_DIR)%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -Wall $(LIBS) -o $(OUTPUT_DIR)$@
+
+clean:
+	-rm -f $(OUTPUT_DIR)*.o
+	-rm -f $(OUTPUT_DIR)$(TARGET)

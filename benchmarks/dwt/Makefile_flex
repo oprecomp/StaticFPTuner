@@ -1,0 +1,40 @@
+TARGET = dwt2
+
+FLEXFLOAT_LIB_DIR  ?= ../../flexfloat/build
+FLEXFLOAT_INC_DIR  ?= ../../flexfloat/include
+LIBS = -lm  $(FLEXFLOAT_LIB_DIR)/libflexfloat.a -flto
+CC = g++
+CFLAGS = -O3 -std=c++11 -flto -I$(FLEXFLOAT_INC_DIR)
+
+CONF_MODE ?= flags
+OUTPUT_DIR ?= ./
+
+ifeq ($(CONF_MODE),flags)
+CFLAGS += -DEXP_WAVELET_DS_H=11 -DFRAC_WAVELET_DS_H=52 -DEXP_WAVELET_DS_G=11 -DFRAC_WAVELET_DS_G=52 -DEXP_WAVELET_DS_A=11 -DFRAC_WAVELET_DS_A=52 -DEXP_WAVELET_DS_H1=11 -DFRAC_WAVELET_DS_H1=52 -DEXP_WAVELET_DS_G1=11 -DFRAC_WAVELET_DS_G1=52 -DEXP_WAVELET_DS_TEMP1=11 -DFRAC_WAVELET_DS_TEMP1=52 -DEXP_WAVELET_DS_TEMP2=11 -DFRAC_WAVELET_DS_TEMP2=52
+else
+CFLAGS += $(EXT_CFLAGS)
+endif
+
+DATASET ?= 0
+CFLAGS += -DDATASET=$(DATASET)
+
+.PHONY: default all clean
+
+default: $(TARGET)
+all: default
+
+SOURCES = dwt_flex.c
+OBJECTS = $(patsubst %.c, $(OUTPUT_DIR)%.o, $(SOURCES))
+HEADERS = $(wildcard *.h)
+
+$(OUTPUT_DIR)%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -Wall $(LIBS) -o $(OUTPUT_DIR)$@
+
+clean:
+	-rm -f $(OUTPUT_DIR)*.o
+	-rm -f $(OUTPUT_DIR)$(TARGET)
